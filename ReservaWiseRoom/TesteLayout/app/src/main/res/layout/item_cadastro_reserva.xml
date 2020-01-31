@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="100dp"
+                android:src="@drawable/icon_pessoa">
+
+            </ImageView>
+
+            <EditText
+                android:id="@+id/ed_nome_organizador"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="30dp"
+                android:textColor="#ffffff"
+                android:inputType="textCapWords"
+                android:hint=" Organizador"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="90dp"
+                android:src="@drawable/ic_description"
+                >
+
+            </ImageView>
+            <EditText
+                android:id="@+id/ed_descricao"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="30dp"
+                android:layout_marginEnd="30dp"
+                android:textColor="#ffffff"
+                android:hint=" Descricao do uso da sala" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageButton
+                android:id="@+id/btn_select_data"
+                android:layout_width="100dp"
+                android:layout_height="99dp"
+                android:layout_gravity="left"
+                android:layout_margin="10dp"
+                android:layout_marginStart="1dp"
+                android:background="@null"
+                android:padding="8dp"
+                android:src="@drawable/icon_data"
+                />
+
+            <TextView
+                android:id="@+id/text_calendario"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:layout_margin="20dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Selecione uma data"
+                android:textColor="#ffffff"
+                >
+
+            </TextView>
+
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btn_select_horaIcial"
+                android:layout_width="100dp"
+                android:layout_height="91dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_margin="8dp"
+                android:layout_toLeftOf="@id/btn_select_horaIcial"
+                android:layout_weight="0"
+                android:background="@null"
+                android:src="@drawable/ic_time"
+                android:padding="8dp"
+                >
+
+            </ImageButton>
+            <TextView
+                android:id="@+id/text_horaioInicial"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_margin="20dp"
+                android:layout_marginEnd="30dp"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
+                android:hint="Horario Inicial">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btn_select_horaFinal"
+                android:layout_width="100dp"
+                android:layout_height="91dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_margin="8dp"
+                android:layout_toLeftOf="@id/btn_select_horaIcial"
+                android:layout_weight="0"
+                android:background="@null"
+                android:src="@drawable/ic_time"
+                android:padding="8dp"
+               >
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/text_horaioFinal"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_margin="20dp"
+                android:layout_marginEnd="30dp"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:hint="Horario final">
+
+            </TextView>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btFinalReserva"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/botao_radius"
+            android:text="Ok"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content">
+
+        </Button>
+
+    </LinearLayout>
+</ScrollView>
+
