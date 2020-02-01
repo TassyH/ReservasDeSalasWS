@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#35465C">
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:layout_width="110dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/icon_pessoa" />
+        app:srcCompat="@drawable/ic_cadastro"/>
 
     <EditText
         android:id="@+id/ed_cadastro_nome"
@@ -81,9 +81,7 @@
         android:inputType="textPassword"
         android:drawableLeft="@drawable/icon_senha"
         android:textColor="#ffffff" >
-        <requestFocus>
 
-        </requestFocus>/>
     </EditText>
 
     <TextView

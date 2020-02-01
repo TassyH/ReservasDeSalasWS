@@ -133,8 +133,8 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                                 try {
                                     String listaOrganizacao = new VerificadorDominio().execute(dominio).get();
                                     System.out.println("dominio: " + dominio);
-                                    System.out.println("empresa " + lista);
-
+                                    lista.clear();
+                                    listaDeStrings.clear();
                                     JSONArray jsonLista = new JSONArray(listaOrganizacao);
 
                                     if (jsonLista.length() > 0) {
@@ -153,6 +153,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                                                 novaOrganizacao.setNome(nome);
                                                 novaOrganizacao.setTipoOrganizacao(tipoOrganizacao);
 
+
                                                 String tipoOrganizacaoStr = "";
                                                 if(novaOrganizacao.getTipoOrganizacao().equals("M")){
                                                     tipoOrganizacaoStr = "Matriz";
@@ -161,8 +162,9 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                                                     tipoOrganizacaoStr = "Filial";
                                                 }
 
-                                                lista.add(novaOrganizacao);
+
                                                 listaDeStrings.add(novaOrganizacao.getNome() + " - " + tipoOrganizacaoStr);
+                                                lista.add(novaOrganizacao);
 
                                             }
 

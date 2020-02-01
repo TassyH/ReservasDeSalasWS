@@ -54,13 +54,6 @@ public class LoginUsuarioActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
-                    if (emailString.isEmpty()|| senhaString.isEmpty()){
-
-                    }else{
-                        Intent intent = new Intent(LoginUsuarioActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-
 
                     exibirMensagem(new VerificadorLogin().execute(emailString, senhaString).get());
 
@@ -73,8 +66,8 @@ public class LoginUsuarioActivity extends AppCompatActivity {
 
     public void exibirMensagem(String mensagem) {
         Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show();
-    }
 
+    }
 
 
 
