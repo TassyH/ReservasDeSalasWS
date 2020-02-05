@@ -39,6 +39,7 @@
                 android:textColor="#ffffff"
                 android:inputType="textCapWords"
                 android:hint=" Organizador"
+                android:textColorHint="@android:color/white"
                 />
 
         </LinearLayout>
@@ -62,6 +63,7 @@
                 android:layout_margin="30dp"
                 android:layout_marginEnd="30dp"
                 android:textColor="#ffffff"
+                android:textColorHint="@android:color/white"
                 android:hint=" Descricao do uso da sala" />
         </LinearLayout>
 
@@ -92,6 +94,7 @@
                 android:layout_marginEnd="30dp"
                 android:hint="Selecione uma data"
                 android:textColor="#ffffff"
+                android:textColorHint="@android:color/white"
                 >
 
             </TextView>
@@ -129,7 +132,8 @@
                 android:layout_marginEnd="30dp"
                 android:textColor="#ffffff"
                 android:textAlignment="center"
-                android:hint="Horario Inicial">
+                android:hint="Horario Inicial"
+                android:textColorHint="@android:color/white">
 
             </TextView>
 
@@ -162,6 +166,7 @@
                 android:layout_marginEnd="30dp"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
+                android:textColorHint="@android:color/white"
                 android:hint="Horario final">
 
             </TextView>

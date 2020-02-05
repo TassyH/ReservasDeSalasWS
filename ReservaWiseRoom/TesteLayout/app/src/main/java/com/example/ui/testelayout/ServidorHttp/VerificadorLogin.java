@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class VerificadorLogin extends AsyncTask<String, Void, String>
 {
-    String urlWS = "http://172.30.248.99:8080/ReservaDeSala/rest/usuario/login/";
+    String urlWS = "http://172.30.248.99:8080/ReservaDeSala/rest/usuario/loginV2/";
 
     @Override
     protected String doInBackground(String... strings)
@@ -25,6 +25,7 @@ public class VerificadorLogin extends AsyncTask<String, Void, String>
             conn.setRequestProperty("password", strings[1]);
             conn.setConnectTimeout(2000);
 
+
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = rd.readLine()) != null)
@@ -32,12 +33,12 @@ public class VerificadorLogin extends AsyncTask<String, Void, String>
                 result.append(line);
             }
             rd.close();
-            System.out.println("deuboa");
+            System.out.println("seu login deuboa");
             return result.toString();
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("naodeuboa");
+            System.out.println("seu login nao deu boa");
         }
         return result.toString();
     }

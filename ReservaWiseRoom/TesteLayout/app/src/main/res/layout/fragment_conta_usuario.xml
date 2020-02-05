@@ -12,9 +12,15 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_user_nome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_person"
-        tools:layout_editor_absoluteX="120dp"
-        tools:layout_editor_absoluteY="0dp"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -69,6 +75,16 @@
 
     </TextView>
 
+    <ImageButton
+        android:id="@+id/btn_sair_conta"
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:background="@color/corBack"
+        android:layout_marginLeft="20dp"
+        app:srcCompat="@drawable/ic_exit"
+        tools:layout_editor_absoluteX="345dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

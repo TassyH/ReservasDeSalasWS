@@ -3,6 +3,7 @@ package com.example.ui.testelayout.activitysnormal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class CadastroUsuarioActivity extends AppCompatActivity {
+
+    SharedPreferences sharedpreferences;
 
     EditText edNome, edEmail, edSenha;
     private  Spinner spOrganizacao;
@@ -95,6 +98,8 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
 
+
+
                     String novoUsuarioDecode;
                     String userCod = new String(Base64.encodeToString(usuarioJson.toString().getBytes("UTF-8"), Base64.NO_WRAP));
                     System.out.println(usuarioJson.toString());
@@ -135,6 +140,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                                     System.out.println("dominio: " + dominio);
                                     lista.clear();
                                     listaDeStrings.clear();
+                                    /////parswado o json///////////////////////
                                     JSONArray jsonLista = new JSONArray(listaOrganizacao);
 
                                     if (jsonLista.length() > 0) {
