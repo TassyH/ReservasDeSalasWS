@@ -10,7 +10,7 @@ public class Sala implements Serializable {
     private String latitude;
     private  int id;
 
-    public String getNome() {
+    public Sala getNome() {
         return nome;
     }
     public void setNome(String nome) {
