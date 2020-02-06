@@ -77,14 +77,16 @@
 
     <ImageButton
         android:id="@+id/btn_sair_conta"
-        android:layout_width="50dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="200dp"
         android:background="@color/corBack"
-        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toTopOf="@id/tv_user_senha"
+        app:layout_constraintBottom_toBottomOf="@id/tv_user_senha"
+        android:layout_margin="50dp"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_exit"
-        tools:layout_editor_absoluteX="345dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,8 @@
         android:background="@color/corBack"
         />
 
+
+
     <androidx.viewpager.widget.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/viewpager"

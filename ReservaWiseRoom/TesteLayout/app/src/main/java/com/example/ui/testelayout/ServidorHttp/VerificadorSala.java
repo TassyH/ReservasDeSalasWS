@@ -19,7 +19,7 @@ public class VerificadorSala extends AsyncTask<String, Void, String>
         {
             URL url = new URL(urlWS);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
             conn.setRequestProperty("authorization", "secret");
             conn.setRequestProperty("id_organizacao", strings[0]);
             conn.setConnectTimeout(2000);
@@ -36,12 +36,12 @@ public class VerificadorSala extends AsyncTask<String, Void, String>
 
 
 
-            System.out.println("que isso irmoa");
+            System.out.println("vc pegou a sala irmao");
             return result.toString();
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("uuhumm ququq eu to fazendo");
+            System.out.println("vc nao pegou a sala bro");
         }
         return result.toString();
     }

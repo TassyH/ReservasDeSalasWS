@@ -22,13 +22,14 @@ import com.example.ui.testelayout.activitysnormal.LoginUsuarioActivity;
 import com.example.ui.testelayout.ui.fragment_main.MainActivity;
 
 public class ContaUsuarioFragment extends Fragment {
-   TextView tv_user_nome, tv_user_email, tv_user_senha;
-   EditText edNome, edEmail, edSenha;
+   TextView user_nome, user_email, user_senha;
+    EditText edNome, edEmail, edSenha;
    Spinner spOrganizacao;
    LoginUsuarioActivity login;
    ImageButton btnSair;
    SharedPreferences sharedPreferences;
    SharedPreferences.Editor editor;
+    String nomeString;
 
     @Nullable
     @Override
@@ -36,7 +37,12 @@ public class ContaUsuarioFragment extends Fragment {
         final View view =inflater.inflate(R.layout.fragment_conta_usuario, container, false);
 
           btnSair = (ImageButton)view.findViewById(R.id.btn_sair_conta);
+          user_nome = (TextView)view.findViewById(R.id.tv_user_nome);
+          user_email = (TextView)view.findViewById(R.id.tv_user_email);
+          user_senha = (TextView)view.findViewById(R.id.tv_user_senha);
 
+          /* nomeString = getActivity().getIntent().getExtras().getString("email");
+           user_nome.setText(nomeString);*/
 
 
         btnSair.setOnClickListener(new View.OnClickListener() {
@@ -54,11 +60,13 @@ public class ContaUsuarioFragment extends Fragment {
 
                Intent intent = new Intent(view.getContext(), LoginUsuarioActivity.class);
                startActivity(intent);
-               
+
 
           }
 
        });
+
+
 
         return view;
     }

@@ -69,23 +69,10 @@ public class LoginUsuarioActivity extends AppCompatActivity {
                     if (emailString.isEmpty() || senhaString.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "os campos de login na podem ficar vazios, bro", Toast.LENGTH_SHORT).show();
                     } else {
-                        //startActivity(new Intent(LoginUsuarioActivity.this, MainActivity.class));
-
-                        /////////////////////////////////REGISTRAR E MOSTRAR OS DADOS DO USUARIO////////////////////////////////////////
-
-
-
-/*
-                        String emailRecuperado;
-                        emailRecuperado = pref.getString("email", null);
-                        System.out.println("email recuperado: " + emailRecuperado);
-                        startActivity(new Intent(LoginUsuarioActivity.this, MainActivity.class));
-                        finish();
-*/
-
-                        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                     }
+
+                    //////////////////////////////////////////////////////////////////////////////////////////
 
                        if (authReturn.length() > 0) {
                            try {
@@ -124,8 +111,11 @@ public class LoginUsuarioActivity extends AppCompatActivity {
                                e.printStackTrace();
                            }
 
-
-                            startActivity(new Intent(LoginUsuarioActivity.this, MainActivity.class));
+                            Intent intent = new Intent(LoginUsuarioActivity.this, MainActivity.class);
+                           /*// intent.putExtra("nome", nomeString);
+                            intent.putExtra("email", emailString);
+                           //intent.putExtra("Value", nomeString);*/
+                            startActivity(intent);
                           } else {
 
                             Toast.makeText(getApplicationContext(), "os dados inseridos nao sao validos, baby", Toast.LENGTH_SHORT).show();

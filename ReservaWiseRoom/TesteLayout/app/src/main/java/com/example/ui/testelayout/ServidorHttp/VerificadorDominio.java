@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class VerificadorDominio extends AsyncTask<String, Void, String> {
+public class VerificadorDominio extends AsyncTask<String, Void, String> {//osganizacao servece
 
     String urlWS = "http://172.30.248.99:8080/ReservaDeSala/rest/organizacao/organizacoesByDominio";
     @Override
