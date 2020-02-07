@@ -14,10 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ListAdapter;
 
+import com.example.ui.testelayout.Adapter.ListaReservaAdapter;
 import com.example.ui.testelayout.Adapter.ListaSalasAdapter;
-import com.example.ui.testelayout.Dao.SalasDAO;
 import com.example.ui.testelayout.Modal.Sala;
 import com.example.ui.testelayout.R;
 import com.example.ui.testelayout.ServidorHttp.VerificadorSala;
@@ -32,13 +31,15 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class ListaSalasFragment extends Fragment {
-    
-   TextView nomeSala;
-    SharedPreferences preferences;
+
+    TextView nomeSala;
     List<Sala> salas = new ArrayList<>();
-    ArrayAdapter adapter;
-    ListView listaDeSalas;
-    ArrayList<Sala> arraySalas;
+    List<Sala> listaSalasStrings = new ArrayList<>();
+    ListaSalasAdapter adapt;
+    ArrayList<String> arraySalas;
+    ListaSalasAdapter adpter;
+
+    //rivate List<Sala> salas;
 
     @Nullable
     @Override
@@ -46,72 +47,69 @@ public class ListaSalasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lista_salas, container, false);
         nomeSala = view.findViewById(R.id.item_nome_sala);
 
+        // preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
+
+        // System.out.println(preferences.getAll());
 
 
-        try{
-             String verifSalas = null;
-             preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
-             verifSalas= new VerificadorSala().execute(preferences.getString("userIdOrganizacao", null)).get();
-             System.out.println(verifSalas);
-             JSONArray salasJson = new JSONArray(verifSalas);
+        try {
+            SharedPreferences preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
+            String idOrg = preferences.getString("userIdOrganizacao", null);
 
-           // List<Sala> salas = new ArrayList<>(); declara fora do oncreate eu acho alguém me ajuda
+            String verifSalas = "";
+            verifSalas = new VerificadorSala().execute(idOrg).get();
 
-            if (salasJson.length() > 0) {
+
+            //  List<Sala> salas = new ArrayList<>();// declara fora do oncreate eu acho alguém me ajuda
+
+            if (verifSalas.length() > 0) {
+                JSONArray salasJson = new JSONArray(verifSalas);
+
+                System.out.println("nome da sala" + verifSalas);
 
                 for (int i = 0; i < salasJson.length(); i++) {
-                    JSONObject salaJSon = salasJson.getJSONObject(i);
+                    JSONObject salaJsonObjeto = salasJson.getJSONObject(i);
+                    if (salaJsonObjeto.has("nome") && salaJsonObjeto.has("localizacao")) {
+                        String nome = salaJsonObjeto.getString("nome");
+                        String local  =  salaJsonObjeto.getString("localizacao");
 
-                    String nome = salaJSon.getString("nome");
-                    Sala sala = new Sala();
-                    sala.setNome(nome);
+                        Sala novaSala = new Sala();
+                        novaSala.setNome(nome);
+                        novaSala.setLocalizacao(local);
+                        salas.add(novaSala);
 
-                    salas.add(sala);
-                    arraySalas.add(sala.getNome());
-
+                    }
                 }
-                listaDeSalas = view.findViewById(R.id.listview_de_salas);
-                adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, arraySalas);
-                listaDeSalas.setAdapter(adapter);
+                ListView listaDeSalas = view.findViewById(R.id.listview_de_salas);
+                listaDeSalas.setAdapter(new ListaSalasAdapter(salas, getContext()));
+              /*  ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listaSalasStrings);
+                listaDeSalas.setAdapter(adapter);*/
 
 
+                listaDeSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(view.getContext(), ReservaSalaActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+
+            } else {
+                System.out.println("Deu ruim bro");
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-
-
-
-
-
-          /* listaDeSalas.setAdapter(new ListaSalasAdapter(salas, view.getContext()));
-          preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
-
-        JSONObject usuarioJSON = new JSONObject();
-        try {
-            JSONObject organizacao = usuarioJSON.getJSONObject("idOrganizacao");
-            int idOrganizacao = organizacao.getInt("id");
-        } catch (JSONException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-*/
 /////////////////////////////////////////////////////////////////////////////////////////////////
-        listaDeSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), ReservaSalaActivity.class);
-                startActivity(intent);
-            }
-        });
 
         return view;
     }
-
 
 
 }

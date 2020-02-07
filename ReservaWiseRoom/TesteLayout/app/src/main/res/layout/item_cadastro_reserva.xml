@@ -180,7 +180,7 @@
             android:layout_gravity="center"
             android:background="@drawable/botao_radius"
             android:text="Ok"
-            android:textColor="#ffffff"
+            android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content">
 
         </Button>

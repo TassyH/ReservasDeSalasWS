@@ -3,26 +3,60 @@ package com.example.ui.testelayout.Modal;
 import java.io.Serializable;
 
 public class Sala implements Serializable {
-    private  String nome;
-    private  String imagem;
-    private String localizacao;
-    private  String longitude;
-    private String latitude;
-    private  int id;
 
-    public Sala getNome() {
+    private int id;
+    private int idOrganizao;
+
+    private String nome;
+    private String imagem;
+    private String localizacao;
+    private String longitude;
+    private String latitude;
+
+    private boolean possuiMidia;
+    private double area;
+    private boolean refrigeracao;
+    private String descricao;
+    private String quantidadePessoasSentadas;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdOrganizao() {
+        return idOrganizao;
+    }
+
+    public void setIdOrganizao(int idOrganizao) {
+        this.idOrganizao = idOrganizao;
+    }
+
+    public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
-        this.nome = this.nome;
+        this.nome = nome;
     }
 
     public String getImagem() {
         return imagem;
     }
 
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
     public String getLocalizacao() {
         return localizacao;
+    }
+
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
     }
 
     public String getLongitude() {
@@ -41,12 +75,12 @@ public class Sala implements Serializable {
         this.latitude = latitude;
     }
 
-    public int getId() {
-        return id;
+    public boolean getPossuiMidia() {
+        return possuiMidia;
     }
 
-    public String getPossuiMidia() {
-        return possuiMidia;
+    public void setPossuiMidia(boolean possuiMidia) {
+        this.possuiMidia = possuiMidia;
     }
 
     public double getArea() {
@@ -57,8 +91,12 @@ public class Sala implements Serializable {
         this.area = area;
     }
 
-    public String getRefrigeracao() {
+    public boolean getRefrigeracao() {
         return refrigeracao;
+    }
+
+    public void setRefrigeracao(boolean refrigeracao) {
+        this.refrigeracao = refrigeracao;
     }
 
     public String getDescricao() {
@@ -77,14 +115,8 @@ public class Sala implements Serializable {
         this.quantidadePessoasSentadas = quantidadePessoasSentadas;
     }
 
-    private  String possuiMidia;
-    private double area;
-    private  String refrigeracao;
-    private String descricao;
-    private String quantidadePessoasSentadas;
 
-
-   /* public Sala(int id, String nome, String imagem, Boolean estado, String localizacao, String refrigeracao, String quantidadePessoasSentadas, String possuiMidia, String descricao, String longitude, String latitude) {
+/* public Sala(int id, String nome, String imagem, Boolean estado, String localizacao, String refrigeracao, String quantidadePessoasSentadas, String possuiMidia, String descricao, String longitude, String latitude) {
         this.nome = nome;
         this.imagem = imagem;
         this.localizacao = localizacao;
@@ -96,7 +128,7 @@ public class Sala implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;*/
 
-    }
+}
 
    /* public String getDescricao() {
         return descricao;

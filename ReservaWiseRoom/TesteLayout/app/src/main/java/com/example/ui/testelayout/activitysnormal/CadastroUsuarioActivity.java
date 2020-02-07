@@ -77,7 +77,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
                 String nomeString = edNome.getText().toString().trim();
                 String emailString = edEmail.getText().toString().trim();
                 String senhaString = edSenha.getText().toString().trim();
@@ -113,15 +112,8 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 } catch (Exception e){
 
                 }
-
-
-
-
             }
         });
-
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -14,9 +14,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/corBack"
-        />
+        android:background="#A5000E"
+        android:minHeight="?attr/actionBarSize" />
 
 
 
@@ -25,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:tabTextColor="@color/corFront"
-        android:background="@color/corBack"
+        android:background="@color/colorPrimary"
         />
 
 

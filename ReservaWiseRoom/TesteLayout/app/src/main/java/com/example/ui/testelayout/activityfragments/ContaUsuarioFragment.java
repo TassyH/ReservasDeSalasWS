@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -23,26 +24,46 @@ import com.example.ui.testelayout.ui.fragment_main.MainActivity;
 
 public class ContaUsuarioFragment extends Fragment {
    TextView user_nome, user_email, user_senha;
-    EditText edNome, edEmail, edSenha;
+   EditText edNome, edEmail, edSenha;
    Spinner spOrganizacao;
    LoginUsuarioActivity login;
-   ImageButton btnSair;
+   Button btnSair;
    SharedPreferences sharedPreferences;
    SharedPreferences.Editor editor;
-    String nomeString;
+   String nomeString;
+   //private  static SharedPreferences userPreferences;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view =inflater.inflate(R.layout.fragment_conta_usuario, container, false);
-
-          btnSair = (ImageButton)view.findViewById(R.id.btn_sair_conta);
+/*
+          btnSair = (Button)view.findViewById(R.id.btn_sair_conta);
           user_nome = (TextView)view.findViewById(R.id.tv_user_nome);
           user_email = (TextView)view.findViewById(R.id.tv_user_email);
           user_senha = (TextView)view.findViewById(R.id.tv_user_senha);
 
-          /* nomeString = getActivity().getIntent().getExtras().getString("email");
-           user_nome.setText(nomeString);*/
+           nomeString = getActivity().getIntent().getExtras().getString("email");
+           user_nome.setText(nomeString);
+
+        SharedPreferences  preferences = getActivity().getSharedPreferences("USER_DATA", 0);
+        String nomeUse = preferences.getString("userEmail", null);
+
+        String nomeString = edNome.getText().toString().trim();
+        String emailString =user_email.getText().toString().trim();*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         btnSair.setOnClickListener(new View.OnClickListener() {

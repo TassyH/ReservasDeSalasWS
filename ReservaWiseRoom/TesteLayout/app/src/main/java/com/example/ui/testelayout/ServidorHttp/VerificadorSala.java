@@ -32,10 +32,6 @@ public class VerificadorSala extends AsyncTask<String, Void, String>
             }
             rd.close();
 
-
-
-
-
             System.out.println("vc pegou a sala irmao");
             return result.toString();
         }
