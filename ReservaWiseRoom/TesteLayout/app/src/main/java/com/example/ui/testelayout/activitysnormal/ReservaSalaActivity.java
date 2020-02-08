@@ -2,6 +2,7 @@ package com.example.ui.testelayout.activitysnormal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import java.util.concurrent.ExecutionException;
 public class ReservaSalaActivity extends AppCompatActivity {
     List<Sala> salas = new ArrayList<>();
     ListaReservaAdapter adapter;
+    public static final String preference = "USER_LOGIN";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +48,12 @@ public class ReservaSalaActivity extends AppCompatActivity {
               TextView  tx_dataCriacao = findViewById(R.id.tx_dataCriacao_sala);
               TextView  tx_midia = findViewById(R.id.tx_possuiMidia_sala);
 
+        SharedPreferences preferences = getSharedPreferences(preference, Context.MODE_PRIVATE);
+        String idUser = preferences.getString("userId", null);
+            System.out.println(idUser);
+            String verifSalas = "";
 
-        SharedPreferences preferences = getSharedPreferences("DATA_EXIBIR", 0);
-        TextView tx_titulo = findViewById(R.id.tx_titulo_sala);
-        String idOrg  = preferences.getString("userIdOrganizacao", null);
 
-              SharedPreferences.Editor editor = preferences.edit();
 
 
 

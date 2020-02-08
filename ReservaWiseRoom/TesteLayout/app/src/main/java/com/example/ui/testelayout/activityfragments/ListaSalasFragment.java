@@ -7,15 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
-import com.example.ui.testelayout.Adapter.ListaReservaAdapter;
 import com.example.ui.testelayout.Adapter.ListaSalasAdapter;
 import com.example.ui.testelayout.Modal.Sala;
 import com.example.ui.testelayout.R;
@@ -38,19 +42,37 @@ public class ListaSalasFragment extends Fragment {
     ListaSalasAdapter adapt;
     ArrayList<String> arraySalas;
     ListaSalasAdapter adpter;
+    ConstraintLayout expandableView;
+    CardView cardView;
 
-    //rivate List<Sala> salas;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lista_salas, container, false);
         nomeSala = view.findViewById(R.id.item_nome_sala);
+        TextView locali = view.findViewById(R.id.item_local_sala);
+        TextView descri = view.findViewById(R.id.item_dataCriacao_sala);
+        TextView dataC = view.findViewById(R.id.item_quantPessoas_sala);
+        expandableView = view.findViewById(R.id.expandableView);
+        final Button inforBtn = view.findViewById(R.id.btn_infor);
+        cardView = view.findViewById(R.id.card_item_lista_salas);
 
-        // preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
-
-        // System.out.println(preferences.getAll());
-
+      /*inforBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expandableView.getVisibility()==View.GONE){
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.VISIBLE);
+                    inforBtn.setBackgroundResource(R.drawable.ic_btn_baixo);
+                } else {
+                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+                    expandableView.setVisibility(View.GONE);
+                    inforBtn.setBackgroundResource(R.drawable.ic_btn_cima);
+                }
+            }
+        });
+*/
 
         try {
             SharedPreferences preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
@@ -59,9 +81,6 @@ public class ListaSalasFragment extends Fragment {
             String verifSalas = "";
             verifSalas = new VerificadorSala().execute(idOrg).get();
 
-
-            //  List<Sala> salas = new ArrayList<>();// declara fora do oncreate eu acho alguém me ajuda
-
             if (verifSalas.length() > 0) {
                 JSONArray salasJson = new JSONArray(verifSalas);
 
@@ -69,7 +88,7 @@ public class ListaSalasFragment extends Fragment {
 
                 for (int i = 0; i < salasJson.length(); i++) {
                     JSONObject salaJsonObjeto = salasJson.getJSONObject(i);
-                    if (salaJsonObjeto.has("nome") && salaJsonObjeto.has("localizacao")) {
+                    if (salaJsonObjeto.has("nome") && salaJsonObjeto.has("localizacao") /*&& salaJsonObjeto.has("quantidadePessoasSentadas")/* && salaJsonObjeto.has("dataCriacao")*/) {
                         String nome = salaJsonObjeto.getString("nome");
                         String local  =  salaJsonObjeto.getString("localizacao");
 
@@ -82,8 +101,6 @@ public class ListaSalasFragment extends Fragment {
                 }
                 ListView listaDeSalas = view.findViewById(R.id.listview_de_salas);
                 listaDeSalas.setAdapter(new ListaSalasAdapter(salas, getContext()));
-              /*  ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listaSalasStrings);
-                listaDeSalas.setAdapter(adapter);*/
 
 
                 listaDeSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {

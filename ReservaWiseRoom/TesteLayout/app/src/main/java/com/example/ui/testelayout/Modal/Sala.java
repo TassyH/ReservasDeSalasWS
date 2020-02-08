@@ -10,14 +10,16 @@ public class Sala implements Serializable {
     private String nome;
     private String imagem;
     private String localizacao;
-    private String longitude;
-    private String latitude;
+    private double longitude;
+    private double latitude;
 
     private boolean possuiMidia;
     private double area;
     private boolean refrigeracao;
     private String descricao;
     private String quantidadePessoasSentadas;
+    private String dataCriacao;
+    private String dataAlteracao;
 
     public int getId() {
         return id;
@@ -59,19 +61,19 @@ public class Sala implements Serializable {
         this.localizacao = localizacao;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -115,8 +117,23 @@ public class Sala implements Serializable {
         this.quantidadePessoasSentadas = quantidadePessoasSentadas;
     }
 
+    public String getDataCriacao() {
+        return dataCriacao;
+    }
 
-/* public Sala(int id, String nome, String imagem, Boolean estado, String localizacao, String refrigeracao, String quantidadePessoasSentadas, String possuiMidia, String descricao, String longitude, String latitude) {
+    public void setDataCriacao(String dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public String getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    public void setDataAlteracao(String dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
+    }
+
+    /* public Sala(int id, String nome, String imagem, Boolean estado, String localizacao, String refrigeracao, String quantidadePessoasSentadas, String possuiMidia, String descricao, String longitude, String latitude) {
         this.nome = nome;
         this.imagem = imagem;
         this.localizacao = localizacao;

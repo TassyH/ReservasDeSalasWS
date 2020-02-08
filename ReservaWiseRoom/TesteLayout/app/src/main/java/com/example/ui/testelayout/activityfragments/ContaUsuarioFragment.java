@@ -26,15 +26,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ContaUsuarioFragment extends Fragment {
-    TextView user_nome, user_email, user_senha;
+    TextView user_nome, user_email, user_org;
     EditText edNome, edEmail, edSenha;
     Spinner spOrganizacao;
     LoginUsuarioActivity login;
     Button btnSair;
-    SharedPreferences sharedPreferences;
+    //SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String nomeString;
-    public static final String mypreference = "mypref";
+    public static final String mypreference = "USER_LOGIN";
 
     @Nullable
     @Override
@@ -44,29 +44,26 @@ public class ContaUsuarioFragment extends Fragment {
         btnSair = (Button) view.findViewById(R.id.btn_sair_conta);
         user_nome = (TextView) view.findViewById(R.id.tv_user_nome);
         user_email = (TextView) view.findViewById(R.id.tv_user_email);
-        user_senha = (TextView) view.findViewById(R.id.tv_user_senha);
+        user_org = (TextView) view.findViewById(R.id.tv_user_organizacao);
 
+        System.out.println("era uma vez uma tassy");
 
-        SharedPreferences preferences = getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-        if (preferences.contains("userEmail") && preferences.contains("userIdOrganizacao")) {
+        SharedPreferences preferences = getContext().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        String idOrg = preferences.getString("userIdOrganizacao", null);
 
             String nomeUser = preferences.getString("userName", null);
             String emailUser = preferences.getString("userEmail", null);
-            String nomeEmpresa = preferences.getString("userNomeEmpresa", null);
-            String tipoEmpresa = preferences.getString("userTipoEmpresa", null);
+            String nomeOrganizacao = preferences.getString("userNomeOrganizacao", null);
 
-            System.out.println(tipoEmpresa);
+            user_nome.setText("Nome: "+nomeUser);
+            user_email.setText("Email: "+emailUser);
+            user_org.setText("Sua Empresa: "+nomeOrganizacao);
 
-            if (tipoEmpresa.equals("M")) {
-                tipoEmpresa = "Matriz";
 
-            } else if (tipoEmpresa.equals("F")) {
-                tipoEmpresa = "Filial";
-            }
 
-            user_nome.getText().toString();
 
-        }
+
+
                 btnSair.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
