@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@color/corBranco"
     android:layout_height="wrap_content">
 
 
@@ -13,30 +13,32 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_login" />
+        app:srcCompat="@drawable/icon_pessoa" />
 
     <EditText
         android:id="@+id/ed_login_email"
-        android:drawableLeft="@drawable/ic_email"
-        android:textColor="#ffffff"
+        android:drawableLeft="@drawable/icon_email"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_below="@+id/iv_user"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:ems="10"
+        android:textColorHint="@color/corBack"
         android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/ed_login_senha"
-        android:drawableLeft="@drawable/icon_senha"
-        android:textColor="#ffffff"
+        android:drawableLeft="@drawable/icon_senhaa"
+        android:textColor="@color/corBack"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_below="@+id/ed_login_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:ems="10"
+        android:textColorHint="@color/colorPrimaryDark"
         android:inputType="textPassword" />
 
 

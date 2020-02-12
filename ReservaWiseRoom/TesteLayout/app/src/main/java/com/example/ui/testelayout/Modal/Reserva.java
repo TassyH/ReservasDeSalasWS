@@ -8,18 +8,46 @@ public class Reserva implements Serializable {
     private String horaIncial;
     private String horaFinal;
     private int id;
+    private int id_sala;
+    private int id_usuario;
     private String descricao;
     private String dataCriacao;
     private String dataAlteracao;
 
-    public Reserva (int id, String nomeOrganizador, String horaFinal, String horaIncial, String descricao, String dataAlteracao, String dataCriacao){
-        this.dataAlteracao = dataAlteracao;
-        this.dataCriacao = dataCriacao;
+    public Reserva() {
+        this.nomeOrganizador = nomeOrganizador;
         this.horaIncial = horaIncial;
         this.horaFinal = horaFinal;
-        this.descricao = descricao;
-        this.nomeOrganizador = nomeOrganizador;
         this.id = id;
+        this.id_sala = id_sala;
+        this.id_usuario = id_usuario;
+        this.descricao = descricao;
+        this.dataCriacao = dataCriacao;
+        this.dataAlteracao = dataAlteracao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId_sala() {
+        return id_sala;
+    }
+
+    public void setId_sala(int id_sala) {
+        this.id_sala = id_sala;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getNomeOrganizador() {
@@ -46,14 +74,6 @@ public class Reserva implements Serializable {
         this.horaFinal = horaFinal;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getDescricao() {
         return descricao;
     }
@@ -77,7 +97,6 @@ public class Reserva implements Serializable {
     public void setDataAlteracao(String dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
     }
-
 
 
 }

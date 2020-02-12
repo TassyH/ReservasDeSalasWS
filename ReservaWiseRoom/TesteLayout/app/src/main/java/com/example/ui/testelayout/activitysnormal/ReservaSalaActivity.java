@@ -56,10 +56,11 @@ public class ReservaSalaActivity extends AppCompatActivity {
         TextView tx_dataAlteracao = findViewById(R.id.tx_dataAlteracao_sala);
         TextView tx_dataCriacao = findViewById(R.id.tx_dataCriacao_sala);
         TextView tx_midia = findViewById(R.id.tx_possuiMidia_sala);
-        //  final ConstraintLayout expandir = findViewById(R.id.expandableView);
+        final ConstraintLayout expandir = findViewById(R.id.layoutExpand);
+        final CardView cardView = findViewById(R.id.card_reserva);
 
 
-/*
+
 
               btn_infor.setOnClickListener(new View.OnClickListener() {
                   @Override
@@ -75,7 +76,7 @@ public class ReservaSalaActivity extends AppCompatActivity {
                       }
                   }
               });
-*/
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
         try {
@@ -88,6 +89,8 @@ public class ReservaSalaActivity extends AppCompatActivity {
             int position = bundle.getInt("position");
             if (listaSalasFromPref != null) {
 
+                System.out.println("meudeus"+position);
+
                     JSONArray salasJson = new JSONArray(listaSalasFromPref);
 
                     JSONObject salaJsonObjeto = salasJson.getJSONObject(position);
@@ -98,21 +101,23 @@ public class ReservaSalaActivity extends AppCompatActivity {
                         double area = salaJsonObjeto.getDouble("areaDaSala");
                         double longitude  = salaJsonObjeto.getDouble("longitude") ;
                         double latitude  = salaJsonObjeto.getDouble("latitude");
-                        String dataCriacao = salaJsonObjeto.getString("dataCriacao");
-                        String dataAlteracao = salaJsonObjeto.getString("dataAlteracao");
-                        // midia = salaJsonObjeto.getBoolean("pussuiMultimidia");
-                        // String refrigeracao = salaJsonObjeto.getString(String.valueOf("possuiArcon"));
+                        //String dataCriacao = salaJsonObjeto.getString("dataCriacao");
+                       // String dataAlteracao = salaJsonObjeto.getString("dataAlteracao");
+                        //boolean midia = salaJsonObjeto.getBoolean("pussuiMultimidia");
+                       // boolean refrigeracao = salaJsonObjeto.getBoolean(String.valueOf("possuiArcon"));
+
+                        System.out.println("pandas "+idSala);
 
 
-                        tx_nome.setText("sala: " + nome);
+                        tx_nome.setText(nome);
                         tx_quantPessoas.setText("Quantidade de pessoas sentadas: " + quantPessoas);
                       //  tx_midia.setText("possui midia : "+midia);
                        // tx_refrigeracao.setText("refrigeracao: "+refrigeracao);
                         tx_area_sala.setText("area da sala: " + area);
                         tx_latitude.setText("latitude: "+latitude);
                         tx_longitude.setText("longitude: "+longitude);
-                        tx_dataAlteracao.setText("dataAlteracao: "+dataAlteracao);
-                        tx_dataCriacao.setText("dataCriacao: "+dataCriacao);
+                        //tx_dataAlteracao.setText("dataAlteracao: "+dataAlteracao);
+                       // tx_dataCriacao.setText("dataCriacao: "+dataCriacao);
 
 
 
@@ -128,14 +133,6 @@ public class ReservaSalaActivity extends AppCompatActivity {
 
 
 
-     /*   SharedPreferences preferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-        String idOrg = preferences.getString("userIdOrganizacao", null);
-        String nomeSala = preferences.getString("nome", null);
-       *//* String emailUser = preferences.getString("userEmail", null);
-        String nomeOrganizacao = preferences.getString("userNomeEmpresa", null);*//*
-        tx_nome.setText("Nome: "+nomeSala);
-        *//*user_email.setText("Email: "+emailUser);
-        user_org.setText("Sua Empresa: "+nomeOrganizacao);*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

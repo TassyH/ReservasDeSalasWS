@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/corBranco"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="100dp"
-                android:src="@drawable/icon_pessoa">
+                android:src="@drawable/ic_action_pessoa">
 
             </ImageView>
 
@@ -36,11 +36,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="30dp"
-                android:textColor="#ffffff"
-                android:inputType="textCapWords"
+                android:layout_marginEnd="30dp"
+                android:textColor="@color/corBack"
                 android:hint=" Organizador"
-                android:textColorHint="@android:color/white"
-                />
+                android:textColorHint="@android:color/black">
+                <requestFocus>
+
+                </requestFocus>
+            </EditText>
 
         </LinearLayout>
 
@@ -50,9 +53,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="90dp"
-                android:src="@drawable/ic_description"
+                android:layout_width="40dp"
+                android:layout_height="70dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/icon_texto_descricao"
                 >
 
             </ImageView>
@@ -62,8 +66,8 @@
                 android:layout_height="50dp"
                 android:layout_margin="30dp"
                 android:layout_marginEnd="30dp"
-                android:textColor="#ffffff"
-                android:textColorHint="@android:color/white"
+                android:textColor="@color/corBack"
+                android:textColorHint="@android:color/black"
                 android:hint=" Descricao do uso da sala" />
         </LinearLayout>
 
@@ -83,19 +87,18 @@
                 android:layout_marginStart="1dp"
                 android:background="@null"
                 android:padding="8dp"
-                android:src="@drawable/icon_data"
+                android:src="@drawable/icon_calendario"
                 />
 
             <TextView
                 android:id="@+id/text_calendario"
                 android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:layout_margin="20dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:hint="Selecione uma data"
-                android:textColor="#ffffff"
-                android:textColorHint="@android:color/white"
-                >
+                android:textColor="@color/corBack"
+                android:textColorHint="@android:color/black">
 
             </TextView>
 
@@ -119,7 +122,7 @@
                 android:layout_toLeftOf="@id/btn_select_horaIcial"
                 android:layout_weight="0"
                 android:background="@null"
-                android:src="@drawable/ic_time"
+                android:src="@drawable/icon_horai"
                 android:padding="8dp"
                 >
 
@@ -130,10 +133,10 @@
                 android:layout_height="30dp"
                 android:layout_margin="20dp"
                 android:layout_marginEnd="30dp"
-                android:textColor="#ffffff"
+                android:textColor="@color/corBack"
                 android:textAlignment="center"
                 android:hint="Horario Inicial"
-                android:textColorHint="@android:color/white">
+                android:textColorHint="@android:color/black">
 
             </TextView>
 
@@ -153,7 +156,7 @@
                 android:layout_toLeftOf="@id/btn_select_horaIcial"
                 android:layout_weight="0"
                 android:background="@null"
-                android:src="@drawable/ic_time"
+                android:src="@drawable/icon_horai"
                 android:padding="8dp"
                >
             </ImageButton>
@@ -165,8 +168,8 @@
                 android:layout_margin="20dp"
                 android:layout_marginEnd="30dp"
                 android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textColorHint="@android:color/white"
+                android:textColor="@color/corBack"
+                android:textColorHint="@android:color/black"
                 android:hint="Horario final">
 
             </TextView>
@@ -180,7 +183,7 @@
             android:layout_gravity="center"
             android:background="@drawable/botao_radius"
             android:text="Ok"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/corBranco"
             android:layout_height="wrap_content">
 
         </Button>

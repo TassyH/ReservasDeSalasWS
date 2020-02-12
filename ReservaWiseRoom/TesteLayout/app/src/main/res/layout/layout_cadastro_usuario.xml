@@ -26,6 +26,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:drawableLeft="@drawable/ic_person"
+        android:textColorHint="@color/corBranco"
         android:textColor="#ffffff" />
 
     <TextView
@@ -51,6 +52,7 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:drawableLeft="@drawable/ic_email"
+        android:textColorHint="@color/corBranco"
         android:textColor="#ffffff">
         <requestFocus>
 
@@ -80,6 +82,7 @@
         android:ems="10"
         android:inputType="textPassword"
         android:drawableLeft="@drawable/icon_senha"
+        android:textColorHint="@color/corBranco"
         android:textColor="#ffffff" >
 
     </EditText>

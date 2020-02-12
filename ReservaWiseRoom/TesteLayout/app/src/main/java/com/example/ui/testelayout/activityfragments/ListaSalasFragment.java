@@ -100,7 +100,6 @@ public class ListaSalasFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(view.getContext(), ReservaSalaActivity.class).putExtra("position", position);
-                       // Toast.makeText(getActivity(), "id sala:"+idSala, Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 });
