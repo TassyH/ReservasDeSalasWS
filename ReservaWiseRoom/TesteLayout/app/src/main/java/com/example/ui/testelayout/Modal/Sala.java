@@ -13,9 +13,9 @@ public class Sala implements Serializable {
     private double longitude;
     private double latitude;
 
-    private boolean possuiMidia;
+    private boolean possuiMultimidia;
     private double area;
-    private boolean refrigeracao;
+    private boolean possuiArcon;
     private String descricao;
     private String quantidadePessoasSentadas;
     private String dataCriacao;
@@ -77,12 +77,12 @@ public class Sala implements Serializable {
         this.latitude = latitude;
     }
 
-    public boolean getPossuiMidia() {
-        return possuiMidia;
+    public boolean getPossuiMultimidia() {
+        return possuiMultimidia;
     }
 
-    public void setPossuiMidia(boolean possuiMidia) {
-        this.possuiMidia = possuiMidia;
+    public void setPossuiMultimidia(boolean possuiMidia) {
+        this.possuiMultimidia = possuiMultimidia;
     }
 
     public double getArea() {
@@ -93,12 +93,12 @@ public class Sala implements Serializable {
         this.area = area;
     }
 
-    public boolean getRefrigeracao() {
-        return refrigeracao;
+    public boolean getPossuiArcon() {
+        return possuiArcon;
     }
 
-    public void setRefrigeracao(boolean refrigeracao) {
-        this.refrigeracao = refrigeracao;
+    public void setPossuiArcon(boolean possuiArcon) {
+        this.possuiMultimidia = possuiArcon;
     }
 
     public String getDescricao() {

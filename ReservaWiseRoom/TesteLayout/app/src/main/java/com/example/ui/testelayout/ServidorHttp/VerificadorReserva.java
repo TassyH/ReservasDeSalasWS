@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class VerificadorReserva extends AsyncTask<String, Void, String>
 {
-    String urlWS = "http://172.30.248.99:8080/ReservaDeSala/rest/alocacaosala/alocacao_sala/";
+    String urlWS = "http://172.30.248.99:8080/ReservaDeSala/rest/reserva/byIdSala/";
 
     @Override
     protected String doInBackground(String... strings)
@@ -21,7 +21,7 @@ public class VerificadorReserva extends AsyncTask<String, Void, String>
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("authorization", "secret");
-            conn.setRequestProperty("id_organizacao", strings[0]);
+            conn.setRequestProperty("id_sala", strings[0]);
             conn.setConnectTimeout(2000);
 
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));

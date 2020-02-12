@@ -53,7 +53,7 @@ public class ContaUsuarioFragment extends Fragment {
 
             String nomeUser = preferences.getString("userName", null);
             String emailUser = preferences.getString("userEmail", null);
-            String nomeOrganizacao = preferences.getString("userNomeOrganizacao", null);
+            String nomeOrganizacao = preferences.getString("userNomeEmpresa", null);
 
             user_nome.setText("Nome: "+nomeUser);
             user_email.setText("Email: "+emailUser);

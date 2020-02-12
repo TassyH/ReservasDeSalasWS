@@ -42,10 +42,10 @@ public class ListaReservaAdapter extends BaseAdapter {
     public View getView(int posicao, View convertView, ViewGroup parent) {
         View viewCriada = LayoutInflater.from(context).inflate(R.layout.fragment_lista_reserva, parent, false);
 
-        Sala sala = salas.get(posicao);
-        TextView tituloSala = viewCriada.findViewById(R.id.tx_titulo_sala);
+      /*  Sala sala = salas.get(posicao);
+        TextView tituloSala = viewCriada.findViewById(R.id.txt_titulo_sala);
         tituloSala.setText(sala.getNome());
-
+*/
         return viewCriada;
     }
 }

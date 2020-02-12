@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,28 +52,9 @@ public class ListaSalasFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lista_salas, container, false);
         nomeSala = view.findViewById(R.id.item_nome_sala);
-        TextView locali = view.findViewById(R.id.item_local_sala);
-        TextView descri = view.findViewById(R.id.item_dataCriacao_sala);
-        TextView dataC = view.findViewById(R.id.item_quantPessoas_sala);
-        expandableView = view.findViewById(R.id.expandableView);
-        final Button inforBtn = view.findViewById(R.id.btn_infor);
         cardView = view.findViewById(R.id.card_item_lista_salas);
+        final ImageButton btninfor = view.findViewById(R.id.btn_infor);
 
-      /*inforBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (expandableView.getVisibility()==View.GONE){
-                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                    expandableView.setVisibility(View.VISIBLE);
-                    inforBtn.setBackgroundResource(R.drawable.ic_btn_baixo);
-                } else {
-                    TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-                    expandableView.setVisibility(View.GONE);
-                    inforBtn.setBackgroundResource(R.drawable.ic_btn_cima);
-                }
-            }
-        });
-*/
 
         try {
             SharedPreferences preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
@@ -83,15 +65,26 @@ public class ListaSalasFragment extends Fragment {
 
             if (verifSalas.length() > 0) {
                 JSONArray salasJson = new JSONArray(verifSalas);
-
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("listaSalas", verifSalas);
+                editor.commit();
                 System.out.println("nome da sala" + verifSalas);
 
                 for (int i = 0; i < salasJson.length(); i++) {
                     JSONObject salaJsonObjeto = salasJson.getJSONObject(i);
-                    if (salaJsonObjeto.has("nome") && salaJsonObjeto.has("localizacao") /*&& salaJsonObjeto.has("quantidadePessoasSentadas")/* && salaJsonObjeto.has("dataCriacao")*/) {
+                    if (salaJsonObjeto.has("nome") && salaJsonObjeto.has("localizacao") && salaJsonObjeto.has("id")) {
                         String nome = salaJsonObjeto.getString("nome");
                         String local  =  salaJsonObjeto.getString("localizacao");
+                        int idSala = salaJsonObjeto.getInt("id");
 
+
+
+                    /*
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("userId", Integer.toString(idSala));
+
+                        System.out.println(preferences.getString("id", null));
+                        */
                         Sala novaSala = new Sala();
                         novaSala.setNome(nome);
                         novaSala.setLocalizacao(local);
@@ -106,7 +99,8 @@ public class ListaSalasFragment extends Fragment {
                 listaDeSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(view.getContext(), ReservaSalaActivity.class);
+                        Intent intent = new Intent(view.getContext(), ReservaSalaActivity.class).putExtra("position", position);
+                       // Toast.makeText(getActivity(), "id sala:"+idSala, Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 });
