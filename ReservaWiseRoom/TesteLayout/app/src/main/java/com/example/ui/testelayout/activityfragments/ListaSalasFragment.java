@@ -79,12 +79,6 @@ public class ListaSalasFragment extends Fragment {
 
 
 
-                    /*
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("userId", Integer.toString(idSala));
-
-                        System.out.println(preferences.getString("id", null));
-                        */
                         Sala novaSala = new Sala();
                         novaSala.setNome(nome);
                         novaSala.setLocalizacao(local);
@@ -92,6 +86,8 @@ public class ListaSalasFragment extends Fragment {
 
                     }
                 }
+
+
                 ListView listaDeSalas = view.findViewById(R.id.listview_de_salas);
                 listaDeSalas.setAdapter(new ListaSalasAdapter(salas, getContext()));
 

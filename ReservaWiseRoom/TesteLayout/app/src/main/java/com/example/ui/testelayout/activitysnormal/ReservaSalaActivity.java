@@ -106,7 +106,10 @@ public class ReservaSalaActivity extends AppCompatActivity {
                         //boolean midia = salaJsonObjeto.getBoolean("pussuiMultimidia");
                        // boolean refrigeracao = salaJsonObjeto.getBoolean(String.valueOf("possuiArcon"));
 
-                        System.out.println("pandas "+idSala);
+                        preferences = getSharedPreferences("USER_LOGIN", 0);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("idSala", Integer.toString(idSala));
+                        editor.commit();
 
 
                         tx_nome.setText(nome);
@@ -122,6 +125,8 @@ public class ReservaSalaActivity extends AppCompatActivity {
 
 
                     }
+
+                System.out.println(preferences.getString("idSala", null));
 
             }
 
