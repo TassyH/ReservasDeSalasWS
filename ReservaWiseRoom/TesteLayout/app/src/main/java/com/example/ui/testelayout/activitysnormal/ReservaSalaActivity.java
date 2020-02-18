@@ -22,6 +22,7 @@ import com.example.ui.testelayout.Modal.Sala;
 import com.example.ui.testelayout.R;
 import com.example.ui.testelayout.ServidorHttp.VerificadorLogin;
 import com.example.ui.testelayout.ServidorHttp.VerificadorSala;
+import com.example.ui.testelayout.activityfragments.ListaSalasFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -58,6 +59,7 @@ public class ReservaSalaActivity extends AppCompatActivity {
         TextView tx_midia = findViewById(R.id.tx_possuiMidia_sala);
         final ConstraintLayout expandir = findViewById(R.id.layoutExpand);
         final CardView cardView = findViewById(R.id.card_reserva);
+        ListView reservaListview = findViewById(R.id.listViewReservas);
 
 
 
@@ -150,5 +152,14 @@ public class ReservaSalaActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       // startActivity(new Intent(ReservaSalaActivity.this, ListaSalasFragment.class));
+     //   finish();
+    }
+
+
 
 }

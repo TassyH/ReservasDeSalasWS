@@ -36,12 +36,12 @@ public class VerificadorCadastroReserva  extends AsyncTask<String, Void, String>
 
 
 
-            System.out.println("cadastro de reservas deu boa SIMMM irmao");
+            System.out.println("cadastro de reserva lincado com o server SIM");
             return result.toString();
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("cadastro de reservas NAAAOOO NAO NAO NAO deu boa nao irmao");
+            System.out.println("nao ta pegando do server NAO");
         }
         return result.toString();
     }

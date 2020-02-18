@@ -21,11 +21,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.applandeo.materialcalendarview.CalendarView;
 import com.example.ui.testelayout.Adapter.ListaReservaAdapter;
 import com.example.ui.testelayout.Modal.Reserva;
 import com.example.ui.testelayout.R;
 import com.example.ui.testelayout.ServidorHttp.VerificadorCadastroReserva;
 import com.example.ui.testelayout.ServidorHttp.VerificadorLogin;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,13 +45,10 @@ public class CadastroReservaActivity extends AppCompatActivity {
     Button btnFinalizarReserva;
     TextView textoData, textoHoraI, textoHoraF;
     EditText edNomeLocador, edDrescricaoLocador;
-    int ano, mes, dia, hora, minuto;
-    int anoFinalI, mesFinalI, diaFinalI, horaFinalI, minutoFinalI;
-    int anoFinalF, mesFinalF, diaFinalF, horaFinalF, minutoFinalF;
     private long dateInicio, dateFim, dateLong;
     public TextView stringData;
     private ListaReservaAdapter adapter;
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
     private Context context = this;
 
     public static final String mypreference = "USER_LOGIN";
@@ -58,15 +58,13 @@ public class CadastroReservaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_reserva);
         setTitle(TITULO_APPBAR);
-        getDataCadastroReserva(dateLong);
 
 
-        btndata = (ImageButton) findViewById(R.id.btn_select_data);
+
+
         btnFinalizarReserva = (Button) findViewById(R.id.btFinalReserva);
-        btnhoraI = (ImageButton) findViewById(R.id.btn_select_horaIcial);
-        btnhoraF = (ImageButton) findViewById(R.id.btn_select_horaFinal);
         textoHoraI = (TextView) findViewById(R.id.text_horaioInicial);
-        textoData = (TextView) findViewById(R.id.text_calendario);
+        textoData = (TextView) findViewById(R.id.text_print_data);
         textoHoraF = (TextView) findViewById(R.id.text_horaioFinal);
         edDrescricaoLocador = (EditText) findViewById(R.id.ed_descricao);
         edNomeLocador = (EditText) findViewById(R.id.ed_nome_organizador);
@@ -85,6 +83,9 @@ public class CadastroReservaActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
                 String idOrg = preferences.getString("userId", null);
                 String idSala = preferences.getString("idSala", null);
+
+                TextView organizador = findViewById(R.id.ed_nome_organizador);
+                organizador.setText("Organizador: " + preferences.getString("userName", null));
 
                 JSONObject reservaJson = new JSONObject();
 
@@ -109,9 +110,8 @@ public class CadastroReservaActivity extends AppCompatActivity {
                     System.out.println(reservaEncoded);
 
                     authReturn = new VerificadorCadastroReserva().execute(reservaEncoded).get();
-                    JSONObject reservaObj = new JSONObject(authReturn);
 
-                    if (authReturn.equals("Reserva realizada com sucesso mano")) {
+                    if (authReturn.equals("Reserva realizada com sucesso")) {
                         Toast.makeText(CadastroReservaActivity.this, "Reserva efetuada com sucesso bro ", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
@@ -120,7 +120,8 @@ public class CadastroReservaActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(CadastroReservaActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroReservaActivity.this, " que ta acontecendo meupai", Toast.LENGTH_LONG).show();
+                    finish();
                 }
 
 
@@ -130,9 +131,23 @@ public class CadastroReservaActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         //////////////////////////////////////////////////////////////////
+        textoData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*stringData = findViewById(R.id.text_print_data);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String data = dateFormat.format(calendarView.getSelectedDate().getDate().getTime());
 
-        btndata.setOnClickListener(new View.OnClickListener() {
+                    System.out.println("Data em long " + dateLong);
+                    stringData.setText(data);*/
+            }
+        });
+
+        textoHoraI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -140,75 +155,10 @@ public class CadastroReservaActivity extends AppCompatActivity {
             }
         });
 
-        btnhoraI.setOnClickListener(new View.OnClickListener() {
+        textoHoraF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final Calendar calendario = Calendar.getInstance();
-                final SimpleDateFormat formatHora = new SimpleDateFormat("HH:mm");
-                calendario.setTimeInMillis(getDataCadastroReserva(dateLong));
-                final int hora = calendario.get(Calendar.HOUR_OF_DAY);
-                final int min = calendario.get(Calendar.MINUTE);
-
-                if (v == btnhoraI) {
-                  //  TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                        TimePickerDialog.OnTimeSetListener horaSetListener = new TimePickerDialog.OnTimeSetListener() {
-
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                            getHora(hourOfDay, minute, calendario, formatHora, textoHoraI);
-                            dateInicio = calendario.getTime().getTime();
-                            System.out.println("data e hora inicio " + dateInicio);
-
-                            //textoHoraI.setText(formatHora.format(calendario.getTime()));
-                        }
-                    };
-                        new TimePickerDialog(CadastroReservaActivity.this, horaSetListener, calendario.get(Calendar.HOUR_OF_DAY), calendario.get(Calendar.MINUTE), false).show();
-                }
-
-           /* final Calendar calendar = Calendar.getInstance();
-
-            TimePickerDialog.OnTimeSetListener horaSetListener = new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int horaDoDia, int minuto) {
-                    calendar.set(Calendar.HOUR_OF_DAY, horaDoDia);
-                    calendar.set(Calendar.MINUTE, minuto);
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-                    textoHoraF.setText(simpleDateFormat.format(calendar.getTime()));
-                }
-            };
-
-            new TimePickerDialog(CadastroReservaActivity.this, horaSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
-        }
-*/
-            }
-        });
-
-        btnhoraF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final Calendar calendario = Calendar.getInstance();
-                final SimpleDateFormat formatHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                calendario.setTimeInMillis(getDataCadastroReserva(dateLong));
-                final int hora = calendario.get(Calendar.HOUR_OF_DAY);
-                final int min = calendario.get(Calendar.MINUTE);
-
-                if (v == btnhoraF) {
-                    TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                            getHora(hourOfDay, minute, calendario, formatHora, textoHoraF);
-                            dateFim = calendario.getTime().getTime();
-                            System.out.println("data e hora fim  " + dateFim);
-
-                            //textoHoraI.setText(formatHora.format(calendario.getTime()));
-                        }
-                    }, hora, min, android.text.format.DateFormat.is24HourFormat(context));
-                    timePickerDialog.show();
-                }
             }
         });
 
@@ -223,58 +173,16 @@ public class CadastroReservaActivity extends AppCompatActivity {
         hora.setText(formataHora.format(calendar.getTime()));
     }
 
-      /*  private void showHorarioDialogo ( final ImageButton btnhoraF){
-            final Calendar calendar = Calendar.getInstance();
 
-            TimePickerDialog.OnTimeSetListener horaSetListener = new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int horaDoDia, int minuto) {
-                    calendar.set(Calendar.HOUR_OF_DAY, horaDoDia);
-                    calendar.set(Calendar.MINUTE, minuto);
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-                    textoHoraF.setText(simpleDateFormat.format(calendar.getTime()));
-                }
-            };
-
-            new TimePickerDialog(CadastroReservaActivity.this, horaSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
-        }
-*/
-      /*  private void showDateDialog ( final ImageButton btndata){
-            final Calendar calendario = Calendar.getInstance();
-            DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    calendario.set(Calendar.YEAR, year);
-                    calendario.set(Calendar.MONTH, month);
-                    calendario.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
-                    textoData.setText(simpleDateFormat.format(calendario.getTime()));
-
-                }
-            };
-
-            new DatePickerDialog(CadastroReservaActivity.this, dateSetListener, calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH)).show();
-        }*/
-
-
-    private long getDataCadastroReserva(long dateLong) {
-
-        stringData = findViewById(R.id.text_calendario);
-        Intent intent = getIntent();
-        Bundle bundleParam = intent.getExtras();
-        if (bundleParam != null) {
-            String data = bundleParam.getString("DataStr");
-            dateLong = bundleParam.getLong("Date");
-            System.out.println("DATE LONG " + dateLong);
-
-            stringData.setText(data);
-
-            return dateLong;
-        } else {
-            Toast.makeText(CadastroReservaActivity.this, "jisus me ajuda pq a data ta nula", Toast.LENGTH_LONG).show();
-        }
-        return 0;
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
+
+
+
+
 
 }
 
