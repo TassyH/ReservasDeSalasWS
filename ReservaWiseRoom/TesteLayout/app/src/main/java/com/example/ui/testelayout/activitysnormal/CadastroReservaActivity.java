@@ -1,6 +1,8 @@
 package com.example.ui.testelayout.activitysnormal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -23,10 +25,13 @@ import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.example.ui.testelayout.Adapter.ListaReservaAdapter;
+import com.example.ui.testelayout.DatePickerCalendar;
 import com.example.ui.testelayout.Modal.Reserva;
+import com.example.ui.testelayout.Modal.Sala;
 import com.example.ui.testelayout.R;
 import com.example.ui.testelayout.ServidorHttp.VerificadorCadastroReserva;
 import com.example.ui.testelayout.ServidorHttp.VerificadorLogin;
+import com.example.ui.testelayout.TimePickerCalendar;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
@@ -34,12 +39,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class CadastroReservaActivity extends AppCompatActivity {
+public class CadastroReservaActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     public static final String TITULO_APPBAR = "Realizar reservas";
     ImageButton btndata, btnhoraI, btnhoraF;
     Button btnFinalizarReserva;
@@ -50,7 +57,11 @@ public class CadastroReservaActivity extends AppCompatActivity {
     private ListaReservaAdapter adapter;
     private SharedPreferences preferences;
     private Context context = this;
-
+    private SharedPreferences configuraHora;
+    DialogFragment datePickerCalendar = new DatePickerCalendar();
+    DialogFragment timePickerCalendar = new TimePickerCalendar();
+    long dateTimeInicialMiliseconds;
+    long dateTimeFinalMiliseconds;
     public static final String mypreference = "USER_LOGIN";
 
     @Override
@@ -58,8 +69,7 @@ public class CadastroReservaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_reserva);
         setTitle(TITULO_APPBAR);
-
-
+        configuraHora = getSharedPreferences("HORA_INICIAL", 0);
 
 
         btnFinalizarReserva = (Button) findViewById(R.id.btFinalReserva);
@@ -91,10 +101,12 @@ public class CadastroReservaActivity extends AppCompatActivity {
 
                 try {
 
+                    dateTimeFormat(textoHoraI, textoHoraF);
+
                     reservaJson.put("nome", nomeString);
                     reservaJson.put("descricao", descricaoString);
-                    reservaJson.put("data_hora_inicio", dateInicio);
-                    reservaJson.put("data_hora_final", dateFim);
+                    reservaJson.put("data_hora_inicio", dateTimeInicialMiliseconds);
+                    reservaJson.put("data_hora_final", dateTimeFinalMiliseconds);
                     reservaJson.put("id_sala", idSala);
                     reservaJson.put("id_usuario", idOrg);
 
@@ -129,27 +141,30 @@ public class CadastroReservaActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+
+
         });
 
 
 
 
-        //////////////////////////////////////////////////////////////////
+        ////////////////////////////data e hora //////////////////////////////////////
         textoData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*stringData = findViewById(R.id.text_print_data);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                String data = dateFormat.format(calendarView.getSelectedDate().getDate().getTime());
+                datePickerCalendar.show(getSupportFragmentManager(),"Date pk");
 
-                    System.out.println("Data em long " + dateLong);
-                    stringData.setText(data);*/
             }
         });
 
         textoHoraI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                timePickerCalendar.show(getSupportFragmentManager(), "Hora Picker");
+                boolean horaInicial;
+                SharedPreferences.Editor editor = configuraHora.edit();
+                horaInicial = true;
+                editor.putBoolean("HoraInicial", horaInicial).commit();
 
 
             }
@@ -158,7 +173,11 @@ public class CadastroReservaActivity extends AppCompatActivity {
         textoHoraF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                timePickerCalendar.show(getSupportFragmentManager(), "Hora Picker");
+                boolean HoraInicial;
+                SharedPreferences.Editor editor = configuraHora.edit();
+                HoraInicial = false;
+                editor.putBoolean("HoraInicial", HoraInicial).commit();
             }
         });
 
@@ -166,13 +185,12 @@ public class CadastroReservaActivity extends AppCompatActivity {
 /////////////////////////////////////////////////////////////////
     }
 
+    //Sala sala = salaAtual();
 
-    private void getHora(int hourOfDay, int minute, Calendar calendar, SimpleDateFormat formataHora, TextView hora) {
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calendar.set(Calendar.MINUTE, minute);
-        hora.setText(formataHora.format(calendar.getTime()));
-    }
-
+   /* private Sala salaAtual() {
+        Intent intent = getIntent();
+        return (Sala) intent.getSerializableExtra("salaSelecionada");
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -181,9 +199,78 @@ public class CadastroReservaActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        TextView dia = findViewById(R.id.text_print_data);
+
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(Calendar.YEAR, year);
+        calendario.set(Calendar.MONTH, month);
+        calendario.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        //textoHoraI.setText(simpleDateFormat.format(calendario.getTime()));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        String date = (simpleDateFormat.format(calendario.getTime()));
+        dia.setText(String.format(date));
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Boolean horaInicial = configuraHora.getBoolean("HoraInicial", false);
+        String horaFormatada;
+        String minutoFormatado;
+
+        horaFormatada = String.valueOf(hourOfDay);
+        minutoFormatado = String.valueOf(minute);
+
+        if(hourOfDay<10){
+            horaFormatada = "0"+hourOfDay;
+        }
+        if(minute<10){
+            minutoFormatado = "0"+minute;
+        }
+
+        if (horaInicial) {
+            String horaI = horaFormatada + ":" + minutoFormatado;
+            textoHoraI.setText(horaI);
+        } else if (!horaInicial) {
+            String horaF = horaFormatada + ":" + minutoFormatado;
+            textoHoraF.setText(horaF);
+        }
+    }
+
+      private void dateTimeFormat(TextView textoHoraI, TextView textoHoraF) {
+        SimpleDateFormat dateTimeFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+          textoData = (TextView) findViewById(R.id.text_print_data);
+          String dataString = textoData.getText().toString();//ok
+          String horaInicioStr = textoHoraI.getText().toString();//ok
+          String horaFimStr = textoHoraF.getText().toString();//ok
+
+          String dateTimeInicial = dataString + " - "+horaInicioStr.trim();
+          String dateTimeFinal = dataString + " - "+horaFimStr.trim();
+
+
+          System.out.println("josh "+dateTimeInicial);
+          System.out.println("tyler "+dateTimeFinal);
+
+          try {
+
+              Date dateTimeInicioParseado = dateTimeFormat.parse(dateTimeInicial);
+              Date dateTimeFimParseado = dateTimeFormat.parse(dateTimeFinal);
+              dateTimeInicialMiliseconds=dateTimeInicioParseado.getTime();
+              dateTimeFinalMiliseconds = dateTimeFimParseado.getTime();
+
+
+              System.out.println("data long"+dateTimeInicialMiliseconds);
+              System.out.println("hora long"+dateTimeFinalMiliseconds);
+
+          } catch (ParseException e) {
+              e.printStackTrace();
+          }
+      }
+
+    }
 
 
 
-}
 
 
