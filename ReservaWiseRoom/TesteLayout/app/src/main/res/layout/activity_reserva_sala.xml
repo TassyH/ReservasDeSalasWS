@@ -80,13 +80,12 @@
                  tools:ignore="MissingConstraints"
                  tools:layout_editor_absoluteX="0dp"></TextView>
 
-             <androidx.cardview.widget.CardView
-    android:id="@+id/card_reserva"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
 
-    app:layout_constraintTop_toBottomOf="@id/tx_caracteristicas_sala"
-    >
+     <androidx.cardview.widget.CardView
+        android:id="@+id/card_reserva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tx_caracteristicas_sala">
 
 
 
@@ -94,8 +93,7 @@
         android:id="@+id/layoutExpand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-      >
+        android:visibility="gone">
 
         <View
             android:id="@+id/item_divisor2_sala"
