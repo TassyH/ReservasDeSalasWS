@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ui.testelayout">
+    package="com.example.ui.controledesalas">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,12 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activitysnormal.ReservaSalaActivity"></activity>
-        <activity android:name=".activitysnormal.CadastroReservaActivity" />
-        <activity android:name=".activitysnormal.CadastroUsuarioActivity" />
-        <activity android:name=".ui.fragment_main.MainActivity" />
+        <activity android:name="com.example.ui.controledesalas.activitysnormal.ReservaSalaActivity"></activity>
+        <activity android:name="com.example.ui.controledesalas.activitysnormal.CadastroReservaActivity" />
+        <activity android:name="com.example.ui.controledesalas.activitysnormal.CadastroUsuarioActivity" />
+        <activity android:name="com.example.ui.controledesalas.ui.fragment_main.MainActivity" />
         <activity
-            android:name=".activitysnormal.LoginUsuarioActivity"
+            android:name="com.example.ui.controledesalas.activitysnormal.LoginUsuarioActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
