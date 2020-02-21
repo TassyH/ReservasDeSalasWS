@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,6 +28,7 @@ import com.example.ui.controledesalas.TimePickerCalendar;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,18 +38,18 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
     public static final String TITULO_APPBAR = "Realizar reservas";
     ImageButton btndata, btnhoraI, btnhoraF;
     Button btnFinalizarReserva;
-    TextView textoData, textoHoraI, textoHoraF;
+    TextView textoData;
     EditText edNomeLocador, edDrescricaoLocador;
     private long dateInicio, dateFim, dateLong;
-    public TextView stringData;
+    private  TextView horaInicio, horaFim;
     private ListaReservaAdapter adapter;
     private SharedPreferences preferences;
     private Context context = this;
     private SharedPreferences configuraHora;
     DialogFragment datePickerCalendar = new DatePickerCalendar();
     DialogFragment timePickerCalendar = new TimePickerCalendar();
-    long dateTimeInicialMiliseconds;
-    long dateTimeFinalMiliseconds;
+    long dateTimeInicialLong;
+    long dateTimeFinalLong;
     public static final String mypreference = "USER_LOGIN";
 
     @Override
@@ -56,12 +58,10 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
         setContentView(R.layout.activity_cadastro_reserva);
         setTitle(TITULO_APPBAR);
         configuraHora = getSharedPreferences("HORA_INICIAL", 0);
-
-
         btnFinalizarReserva = (Button) findViewById(R.id.btFinalReserva);
-        textoHoraI = (TextView) findViewById(R.id.text_horaioInicial);
         textoData = (TextView) findViewById(R.id.text_print_data);
-        textoHoraF = (TextView) findViewById(R.id.text_horaioFinal);
+        horaInicio = (TextView) findViewById(R.id.text_horaioInicial);
+        horaFim = (TextView) findViewById(R.id.text_horaioFinal);
         edDrescricaoLocador = (EditText) findViewById(R.id.ed_descricao);
         edNomeLocador = (EditText) findViewById(R.id.ed_nome_organizador);
 
@@ -85,14 +85,17 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
 
                 JSONObject reservaJson = new JSONObject();
 
+
+                Log.i("teste", "metodo format");
+                dateTimeFormat(horaInicio, horaFim);
                 try {
 
-                    dateTimeFormat(textoHoraI, textoHoraF);
 
-                    reservaJson.put("nome", nomeString);
+
+                   // reservaJson.put("nome", nomeString);
                     reservaJson.put("descricao", descricaoString);
-                    reservaJson.put("data_hora_inicio", dateTimeInicialMiliseconds);
-                    reservaJson.put("data_hora_final", dateTimeFinalMiliseconds);
+                    reservaJson.put("data_hora_inicio", dateTimeInicialLong);
+                    reservaJson.put("data_hora_final", dateTimeFinalLong);
                     reservaJson.put("id_sala", idSala);
                     reservaJson.put("id_usuario", idOrg);
 
@@ -138,32 +141,30 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
         textoData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePickerCalendar.show(getSupportFragmentManager(),"Date pk");
+                datePickerCalendar.show(getSupportFragmentManager(),"Date Picker");
 
             }
         });
-
-        textoHoraI.setOnClickListener(new View.OnClickListener() {
+        horaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timePickerCalendar.show(getSupportFragmentManager(), "Hora Picker");
+                timePickerCalendar.show(getSupportFragmentManager(), "Time Picker");
                 boolean horaInicial;
                 SharedPreferences.Editor editor = configuraHora.edit();
                 horaInicial = true;
-                editor.putBoolean("HoraInicial", horaInicial).commit();
+                editor.putBoolean("horaInicio", horaInicial).commit();
 
 
             }
         });
-
-        textoHoraF.setOnClickListener(new View.OnClickListener() {
+        horaFim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timePickerCalendar.show(getSupportFragmentManager(), "Hora Picker");
+                timePickerCalendar.show(getSupportFragmentManager(), "Time Picker");
                 boolean HoraInicial;
                 SharedPreferences.Editor editor = configuraHora.edit();
                 HoraInicial = false;
-                editor.putBoolean("HoraInicial", HoraInicial).commit();
+                editor.putBoolean("horaInicio", HoraInicial).commit();
             }
         });
 
@@ -171,12 +172,6 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
 /////////////////////////////////////////////////////////////////
     }
 
-    //Sala sala = salaAtual();
-
-   /* private Sala salaAtual() {
-        Intent intent = getIntent();
-        return (Sala) intent.getSerializableExtra("salaSelecionada");
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -194,14 +189,18 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
         calendario.set(Calendar.MONTH, month);
         calendario.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         //textoHoraI.setText(simpleDateFormat.format(calendario.getTime()));
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
-        String date = (simpleDateFormat.format(calendario.getTime()));
+       /* SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        String date = (simpleDateFormat.format(calendario.getTime()));*/
+
+        String date = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(calendario.getTime());
         dia.setText(String.format(date));
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Boolean horaInicial = configuraHora.getBoolean("HoraInicial", false);
+        TextView horaInicio = (TextView) findViewById(R.id.text_horaioInicial);
+        TextView horaFim = (TextView) findViewById(R.id.text_horaioFinal);
+        Boolean horaInicial = configuraHora.getBoolean("horaInicio", false);
         String horaFormatada;
         String minutoFormatado;
 
@@ -216,38 +215,45 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
         }
 
         if (horaInicial) {
-            String horaI = horaFormatada + ":" + minutoFormatado;
-            textoHoraI.setText(horaI);
-        } else if (!horaInicial) {
-            String horaF = horaFormatada + ":" + minutoFormatado;
-            textoHoraF.setText(horaF);
+            String hora1 = horaFormatada + ":" + minutoFormatado;
+            horaInicio.setText(hora1);
         }
+        else if (!horaInicial) {
+            String hora2 = horaFormatada + ":" + minutoFormatado;
+            horaFim.setText(hora2);
+        }
+
+
     }
 
-      private void dateTimeFormat(TextView textoHoraI, TextView textoHoraF) {
+      private void dateTimeFormat(TextView horaInicio, TextView horaFim) {
         SimpleDateFormat dateTimeFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
           textoData = (TextView) findViewById(R.id.text_print_data);
           String dataString = textoData.getText().toString();//ok
-          String horaInicioStr = textoHoraI.getText().toString();//ok
-          String horaFimStr = textoHoraF.getText().toString();//ok
+          String horaInicioString = horaInicio.getText().toString();//ok
+          String horaFimString = horaFim.getText().toString();//ok
 
-          String dateTimeInicial = dataString + " - "+horaInicioStr.trim();
-          String dateTimeFinal = dataString + " - "+horaFimStr.trim();
+          String dateTimeInicial = dataString + " - "+horaInicioString.trim();
+          String dateTimeFinal = dataString + " - "+horaFimString.trim();
+
+          System.out.println("datetime inicial "+dateTimeInicial);
+          System.out.println("datetime final "+dateTimeFinal);
 
 
-          System.out.println("josh "+dateTimeInicial);
-          System.out.println("tyler "+dateTimeFinal);
 
           try {
 
+
               Date dateTimeInicioParseado = dateTimeFormat.parse(dateTimeInicial);
               Date dateTimeFimParseado = dateTimeFormat.parse(dateTimeFinal);
-              dateTimeInicialMiliseconds=dateTimeInicioParseado.getTime();
-              dateTimeFinalMiliseconds = dateTimeFimParseado.getTime();
+              dateTimeInicialLong = dateTimeInicioParseado.getTime();
+              dateTimeFinalLong = dateTimeFimParseado.getTime();
+              Log.i("teste parse", dateTimeInicioParseado.toString());
+              Log.i("teste parse", String.valueOf(dateTimeInicialLong));
 
 
-              System.out.println("data long"+dateTimeInicialMiliseconds);
-              System.out.println("hora long"+dateTimeFinalMiliseconds);
+              System.out.println("data long"+ dateTimeInicialLong);
+              System.out.println("hora long"+ dateTimeInicialLong);
 
           } catch (ParseException e) {
               e.printStackTrace();

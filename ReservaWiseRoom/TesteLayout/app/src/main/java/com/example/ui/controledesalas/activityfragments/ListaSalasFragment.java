@@ -49,9 +49,9 @@ public class ListaSalasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lista_salas, container, false);
         nomeSala = view.findViewById(R.id.item_nome_sala);
         cardView = view.findViewById(R.id.card_item_lista_salas);
-        final ImageButton btn_infor = view.findViewById(R.id.btn_infor);
+       /* final ImageButton btn_infor = view.findViewById(R.id.btn_infor);
         final ConstraintLayout expandir = view.findViewById(R.id.layoutExpand);
-        final CardView cardView = view.findViewById(R.id.card_reserva);
+        final CardView cardView = view.findViewById(R.id.card_reserva);*/
         TextView tx_latitude = view.findViewById(R.id.tx_latitude_sala);
         TextView tx_longitude = view.findViewById(R.id.tx_longitude_sala);
         TextView tx_quantPessoas = view.findViewById(R.id.tx_quantPessoas_sala);
