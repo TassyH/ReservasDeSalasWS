@@ -24,7 +24,6 @@
                 android:textSize="20sp"
                 android:text="Nome Sala"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf=""
                 app:layout_constraintVertical_bias="1.0"
                 tools:ignore="MissingConstraints"
                 />
