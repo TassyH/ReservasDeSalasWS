@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.ui.controledesalas.Adapter.ListaReservaAdapter;
 import com.example.ui.controledesalas.DatePickerCalendar;
+import com.example.ui.controledesalas.Modal.Reserva;
 import com.example.ui.controledesalas.R;
 import com.example.ui.controledesalas.ServidorHttp.VerificadorCadastroReserva;
 import com.example.ui.controledesalas.TimePickerCalendar;
@@ -38,8 +39,8 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
     public static final String TITULO_APPBAR = "Realizar reservas";
     ImageButton btndata, btnhoraI, btnhoraF;
     Button btnFinalizarReserva;
-    TextView textoData;
-    EditText edNomeLocador, edDrescricaoLocador;
+    TextView textoData, edNomeLocador;
+    EditText edDrescricaoLocador;
     private long dateInicio, dateFim, dateLong;
     private  TextView horaInicio, horaFim;
     private ListaReservaAdapter adapter;
@@ -59,29 +60,34 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
         setTitle(TITULO_APPBAR);
         configuraHora = getSharedPreferences("HORA_INICIAL", 0);
         btnFinalizarReserva = (Button) findViewById(R.id.btFinalReserva);
+        ImageButton btndata = (ImageButton) findViewById(R.id.btn_data);
+        ImageButton btnhorai = (ImageButton) findViewById(R.id.btn_horai);
+        ImageButton btnhoraf = (ImageButton) findViewById(R.id.btn_horaf);
         textoData = (TextView) findViewById(R.id.text_print_data);
         horaInicio = (TextView) findViewById(R.id.text_horaioInicial);
         horaFim = (TextView) findViewById(R.id.text_horaioFinal);
         edDrescricaoLocador = (EditText) findViewById(R.id.ed_descricao);
-        edNomeLocador = (EditText) findViewById(R.id.ed_nome_organizador);
+       // edNomeLocador = (TextView) findViewById(R.id.ed_nome_organizador);
 
 
 //////////////////////////METODOS ONCLICK////////////////////////////////////////////////////////
+
+      /*  String nomeString = edNomeLocador.getText().toString().trim();*/
         btnFinalizarReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
                 /////////////////////////////CADASTRO RESERVA ////////////////////////////////////////////////////////////////
-                String nomeString = edNomeLocador.getText().toString().trim();
+
                 String descricaoString = edDrescricaoLocador.getText().toString().trim();
                 String authReturn = "";
                 SharedPreferences preferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
                 String idOrg = preferences.getString("userId", null);
                 String idSala = preferences.getString("idSala", null);
 
-                TextView organizador = findViewById(R.id.ed_nome_organizador);
-                organizador.setText("Organizador: " + preferences.getString("userName", null));
+              /*  TextView organizador = findViewById(R.id.ed_nome_organizador);
+                organizador.setText("Organizador: " + preferences.getString("userName", null));*/
 
                 JSONObject reservaJson = new JSONObject();
 
@@ -95,7 +101,7 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
                    // reservaJson.put("nome", nomeString);
                     reservaJson.put("descricao", descricaoString);
                     reservaJson.put("data_hora_inicio", dateTimeInicialLong);
-                    reservaJson.put("data_hora_final", dateTimeFinalLong);
+                    reservaJson.put("data_hora_fim", dateTimeFinalLong);
                     reservaJson.put("id_sala", idSala);
                     reservaJson.put("id_usuario", idOrg);
 
@@ -124,11 +130,6 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
                     Toast.makeText(CadastroReservaActivity.this, " que ta acontecendo meupai", Toast.LENGTH_LONG).show();
                     finish();
                 }
-
-
-                Intent intent = new Intent(CadastroReservaActivity.this, ReservaSalaActivity.class);
-                startActivity(intent);
-                finish();
             }
 
 
@@ -138,14 +139,14 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
 
 
         ////////////////////////////data e hora //////////////////////////////////////
-        textoData.setOnClickListener(new View.OnClickListener() {
+        btndata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePickerCalendar.show(getSupportFragmentManager(),"Date Picker");
 
             }
         });
-        horaInicio.setOnClickListener(new View.OnClickListener() {
+        btnhorai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePickerCalendar.show(getSupportFragmentManager(), "Time Picker");
@@ -157,7 +158,7 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
 
             }
         });
-        horaFim.setOnClickListener(new View.OnClickListener() {
+        btnhoraf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePickerCalendar.show(getSupportFragmentManager(), "Time Picker");
@@ -230,11 +231,11 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
         SimpleDateFormat dateTimeFormat=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
           textoData = (TextView) findViewById(R.id.text_print_data);
           String dataString = textoData.getText().toString();//ok
-          String horaInicioString = horaInicio.getText().toString();//ok
-          String horaFimString = horaFim.getText().toString();//ok
+          String horaIgetString = horaInicio.getText().toString();//ok
+          String horaFgetString = horaFim.getText().toString();//ok
 
-          String dateTimeInicial = dataString + " - "+horaInicioString.trim();
-          String dateTimeFinal = dataString + " - "+horaFimString.trim();
+          String dateTimeInicial = dataString + " "+horaIgetString+":00".trim();
+          String dateTimeFinal = dataString + " "+horaFgetString+":00".trim();
 
           System.out.println("datetime inicial "+dateTimeInicial);
           System.out.println("datetime final "+dateTimeFinal);
@@ -243,13 +244,12 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
 
           try {
 
-
-              Date dateTimeInicioParseado = dateTimeFormat.parse(dateTimeInicial);
-              Date dateTimeFimParseado = dateTimeFormat.parse(dateTimeFinal);
-              dateTimeInicialLong = dateTimeInicioParseado.getTime();
-              dateTimeFinalLong = dateTimeFimParseado.getTime();
-              Log.i("teste parse", dateTimeInicioParseado.toString());
-              Log.i("teste parse", String.valueOf(dateTimeInicialLong));
+              Date dateTimeInicioParse = dateTimeFormat.parse(dateTimeInicial);
+              Date dateTimeFimParse= dateTimeFormat.parse(dateTimeFinal);
+              dateTimeInicialLong = dateTimeInicioParse.getTime();
+              dateTimeFinalLong = dateTimeFimParse.getTime();
+            /*  Log.i("teste parse", dateTimeInicioParse.toString());
+              Log.i("teste parse", String.valueOf(dateTimeInicialLong));*/
 
 
               System.out.println("data long"+ dateTimeInicialLong);

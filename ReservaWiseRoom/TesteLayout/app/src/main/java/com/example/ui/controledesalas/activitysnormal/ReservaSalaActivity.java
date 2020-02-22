@@ -49,6 +49,10 @@ public class ReservaSalaActivity extends AppCompatActivity {
         TextView tx_dataAlteracao = findViewById(R.id.tx_dataAlteracao_sala);
         TextView tx_dataCriacao = findViewById(R.id.tx_dataCriacao_sala);
         TextView tx_midia = findViewById(R.id.tx_possuiMidia_sala);
+        TextView tx_reservaHoraInicial =  findViewById(R.id.item_datahora_inicial);
+        TextView tx_reservaHoraFinal =  findViewById(R.id.item_datahora_final);
+        TextView tx_reservaDescricao = findViewById(R.id.item_descricao_reserva);
+        TextView tx_reservaNomeSala = findViewById(R.id.item_nome_sala);
         final ConstraintLayout expandir = findViewById(R.id.layoutExpand);
         final CardView cardView = findViewById(R.id.card_reserva);
         ListView reservaListview = findViewById(R.id.listViewReservas);
@@ -62,12 +66,17 @@ public class ReservaSalaActivity extends AppCompatActivity {
                       if (expandir.getVisibility()==View.GONE){
                           TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                           expandir.setVisibility(View.VISIBLE);
-                          btn_infor.setBackgroundResource(R.drawable.icon_btn_cima);
+                          btn_infor.setBackgroundResource(R.drawable.icon_btn_baixo);
+                         // btn_infor.setVisibility(R.drawable.icon_btn_cima);
+
                       } else {
                           TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                           expandir.setVisibility(View.GONE);
                           btn_infor.setBackgroundResource(R.drawable.icon_btn_baixo);
+
                       }
+
+
                   }
               });
 
@@ -88,8 +97,9 @@ public class ReservaSalaActivity extends AppCompatActivity {
                     JSONArray salasJson = new JSONArray(listaSalasFromPref);
 
                     JSONObject salaJsonObjeto = salasJson.getJSONObject(position);
-                    if (salaJsonObjeto.has("nome") && salaJsonObjeto.has("quantidadePessoasSentadas") && salaJsonObjeto.has("id") && salaJsonObjeto.has("possuiMultimidia")&& salaJsonObjeto.has("possuiArcon") && salaJsonObjeto.has("areaDaSala") && salaJsonObjeto.has("longitude")&& salaJsonObjeto.has("latitude")&& salaJsonObjeto.has("dataCriacao")&& salaJsonObjeto.has("dataAlteracao")) {
+                    if (salaJsonObjeto.has("nome") && salaJsonObjeto.has("quantidadePessoasSentadas") && salaJsonObjeto.has("id") && salaJsonObjeto.has("possuiMultimidia")&& salaJsonObjeto.has("possuiArcon") && salaJsonObjeto.has("areaDaSala") && salaJsonObjeto.has("longitude")&& salaJsonObjeto.has("latitude")&& salaJsonObjeto.has("dataCriacao")&& salaJsonObjeto.has("dataAlteracao")&& salaJsonObjeto.has("localizacao")) {
                         String nome = salaJsonObjeto.getString("nome");
+                        String local = salaJsonObjeto.getString("localizacao");
                         int quantPessoas = salaJsonObjeto.getInt("quantidadePessoasSentadas");
                         int idSala = salaJsonObjeto.getInt("id");
                         double area = salaJsonObjeto.getDouble("areaDaSala");
@@ -107,12 +117,13 @@ public class ReservaSalaActivity extends AppCompatActivity {
 
 
                         tx_nome.setText(nome);
+                        tx_local.setText(" Localizacao da sala"+local);
                         tx_quantPessoas.setText("Quantidade de pessoas sentadas: " + quantPessoas);
                       //  tx_midia.setText("possui midia : "+midia);
                        // tx_refrigeracao.setText("refrigeracao: "+refrigeracao);
-                        tx_area_sala.setText("area da sala: " + area);
-                        tx_latitude.setText("latitude: "+latitude);
-                        tx_longitude.setText("longitude: "+longitude);
+                        tx_area_sala.setText(" Area da sala: " + area);
+                        tx_latitude.setText(" Latitude: "+latitude);
+                        tx_longitude.setText("Longitude: "+longitude);
                         //tx_dataAlteracao.setText("dataAlteracao: "+dataAlteracao);
                        // tx_dataCriacao.setText("dataCriacao: "+dataCriacao);
 
@@ -145,13 +156,7 @@ public class ReservaSalaActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-       // startActivity(new Intent(ReservaSalaActivity.this, ListaSalasFragment.class));
-     //   finish();
-    }
-
-
-
 }
+
+
+

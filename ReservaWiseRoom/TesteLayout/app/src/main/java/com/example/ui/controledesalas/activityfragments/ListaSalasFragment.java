@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import com.example.ui.controledesalas.Adapter.ListaSalasAdapter;
 import com.example.ui.controledesalas.Modal.Sala;
@@ -49,9 +51,9 @@ public class ListaSalasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lista_salas, container, false);
         nomeSala = view.findViewById(R.id.item_nome_sala);
         cardView = view.findViewById(R.id.card_item_lista_salas);
-       /* final ImageButton btn_infor = view.findViewById(R.id.btn_infor);
+
         final ConstraintLayout expandir = view.findViewById(R.id.layoutExpand);
-        final CardView cardView = view.findViewById(R.id.card_reserva);*/
+        final CardView cardView = view.findViewById(R.id.card_reserva);
         TextView tx_latitude = view.findViewById(R.id.tx_latitude_sala);
         TextView tx_longitude = view.findViewById(R.id.tx_longitude_sala);
         TextView tx_quantPessoas = view.findViewById(R.id.tx_quantPessoas_sala);
@@ -61,18 +63,18 @@ public class ListaSalasFragment extends Fragment {
         TextView tx_dataCriacao = view.findViewById(R.id.tx_dataCriacao_sala);
         TextView tx_midia = view.findViewById(R.id.tx_possuiMidia_sala);
 
-
-       /* btn_infor.setOnClickListener(new View.OnClickListener() {
+      /*  final ImageButton btn_infor2 = view.findViewById(R.id.btn_infor);
+        btn_infor2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (expandir.getVisibility()==View.GONE){
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandir.setVisibility(View.VISIBLE);
-                    btn_infor.setBackgroundResource(R.drawable.icon_btn_cima);
+                    btn_infor2.setBackgroundResource(R.drawable.icon_btn_cima);
                 } else {
                     TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
                     expandir.setVisibility(View.GONE);
-                    btn_infor.setBackgroundResource(R.drawable.icon_btn_baixo);
+                    btn_infor2.setBackgroundResource(R.drawable.icon_btn_baixo);
                 }
             }
         });*/
