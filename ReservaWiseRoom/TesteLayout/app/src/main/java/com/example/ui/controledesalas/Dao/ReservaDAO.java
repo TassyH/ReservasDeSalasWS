@@ -7,20 +7,11 @@ import java.util.List;
 
 public class ReservaDAO {
 
-    private final static List<Reserva> reservas = new ArrayList<>();
-    private static int contadorDeIds = 1;
+    Reserva reserva = new Reserva();
 
-    public void salva (Reserva reserva){
-        reserva.setId(contadorDeIds);
-        reservas.add(reserva);
-        atualizaIds();
-    }
+    public List<Reserva> lista() {
+        List<Reserva> reservas = new ArrayList();
 
-    private void atualizaIds() {
-        contadorDeIds++;
-    }
-
-    public List<Reserva> todos(){
-        return new ArrayList<>(reservas);
+        return reservas;
     }
 }

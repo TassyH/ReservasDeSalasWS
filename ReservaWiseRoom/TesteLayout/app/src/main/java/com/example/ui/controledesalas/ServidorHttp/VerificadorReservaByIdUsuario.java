@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class VerificadorReservaByIdUsuario extends AsyncTask<String, Void, String>
 {
-    String urlWS = "http://172.30.248.99:8080/ReservaDeSala/rest/reserva/byIdUsuario/";
+    String urlWS = "http://192.168.0.10:8080/ReservaDeSala/rest/reserva/byIdUsuario/";
 
     @Override
     protected String doInBackground(String... strings)
@@ -19,7 +19,7 @@ public class VerificadorReservaByIdUsuario extends AsyncTask<String, Void, Strin
         {
             URL url = new URL(urlWS);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
             conn.setRequestProperty("authorization", "secret");
             conn.setRequestProperty("id_usuario", strings[0]);
             conn.setConnectTimeout(2000);
@@ -41,7 +41,7 @@ public class VerificadorReservaByIdUsuario extends AsyncTask<String, Void, Strin
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("nao ta pegando do server NAO");
+            System.out.println("nao ta pegando a list de resrva do server NAO");
         }
         return result.toString();
     }

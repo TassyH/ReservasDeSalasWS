@@ -111,29 +111,25 @@
 
    <androidx.cardview.widget.CardView
         android:id="@+id/card_reserva"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tx_caracteristicas_sala">
+        android:layout_margin="8dp"
+        android:background="@drawable/borda_sombreada"
+        app:layout_constraintTop_toBottomOf="@id/tx_caracteristicas_sala"
+        tools:ignore="MissingConstraints">
 
 
 
      <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutExpand"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:layout_margin="8dp"
+        android:background="@drawable/borda_sombreada"
+         app:layout_constraintTop_toBottomOf="@id/tx_caracteristicas_sala"
+        android:visibility="visible">
 
-        <View
-            android:id="@+id/item_divisor2_sala"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_below="@id/layoutExpand"
-            android:background="@color/colorPrimaryDark"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_reserva"
-            tools:ignore="NotSibling">
 
-        </View>
 
         <TextView
             android:id="@+id/tx_quantPessoas_sala"
@@ -239,35 +235,6 @@
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="0dp"></TextView>
 
-        <TextView
-            android:id="@+id/tx_dataCriacao_sala"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="8dp"
-            android:text=" Data de criacao:"
-            android:textAlignment="textStart"
-            android:textColor="@color/corBack"
-            android:textSize="20dp"
-            android:textStyle="normal"
-            app:layout_constraintTop_toBottomOf="@id/tx_longitude_sala"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp"></TextView>
-
-        <TextView
-            android:id="@+id/tx_dataAlteracao_sala"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_margin="8dp"
-            android:text=" Data de alteracao:"
-            android:textAlignment="textStart"
-            android:textColor="@color/corBack"
-            android:textSize="20dp"
-            android:textStyle="normal"
-            app:layout_constraintTop_toBottomOf="@id/tx_dataCriacao_sala"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="0dp"></TextView>
 
 
 

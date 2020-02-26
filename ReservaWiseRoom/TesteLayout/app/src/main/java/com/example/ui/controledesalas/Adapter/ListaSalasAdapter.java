@@ -42,20 +42,13 @@ public class ListaSalasAdapter extends BaseAdapter {
         View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_lista_salas, parent, false);
 
         Sala sala = salas.get(posicao);
+
         TextView nomeSala = viewCriada.findViewById(R.id.item_nome_sala);
         nomeSala.setText(sala.getNome());
 
-       TextView local = viewCriada.findViewById(R.id.item_local_sala);
+        TextView local = viewCriada.findViewById(R.id.item_local_sala);
         local.setText(sala.getLocalizacao());
 
-         /*TextView quantPessoas = viewCriada.findViewById(R.id.item_quantPessoas_sala);
-        quantPessoas.setText(sala.getQuantidadePessoasSentadas());
-
-        *//*TextView refrigeracao = viewCriada.findViewById(R.id.item_refrigeracao);
-        refrigeracao.setText(sala.getRefrigeracao());*//*
-
-        TextView descricao = viewCriada.findViewById(R.id.item_dataCriacao_sala);
-        descricao.setText(sala.getDescricao());*/
         return viewCriada;
 
     }

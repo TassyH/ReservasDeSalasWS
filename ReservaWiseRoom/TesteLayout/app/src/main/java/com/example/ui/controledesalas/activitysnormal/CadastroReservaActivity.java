@@ -6,7 +6,6 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
@@ -20,9 +19,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.ui.controledesalas.Adapter.ListaReservaAdapter;
+import com.example.ui.controledesalas.Adapter.ListaReservasAdapter;
 import com.example.ui.controledesalas.DatePickerCalendar;
-import com.example.ui.controledesalas.Modal.Reserva;
 import com.example.ui.controledesalas.R;
 import com.example.ui.controledesalas.ServidorHttp.VerificadorCadastroReserva;
 import com.example.ui.controledesalas.TimePickerCalendar;
@@ -43,7 +41,7 @@ public class CadastroReservaActivity extends AppCompatActivity implements TimePi
     EditText edDrescricaoLocador;
     private long dateInicio, dateFim, dateLong;
     private  TextView horaInicio, horaFim;
-    private ListaReservaAdapter adapter;
+    private ListaReservasAdapter adapter;
     private SharedPreferences preferences;
     private Context context = this;
     private SharedPreferences configuraHora;

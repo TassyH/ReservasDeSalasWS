@@ -15,20 +15,31 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.ui.controledesalas.Adapter.ListaReservaAdapter;
+import com.example.ui.controledesalas.Adapter.ListaReservasAdapter;
+import com.example.ui.controledesalas.Dao.ReservaDAO;
+import com.example.ui.controledesalas.Modal.Reserva;
 import com.example.ui.controledesalas.Modal.Sala;
 import com.example.ui.controledesalas.R;
+import com.example.ui.controledesalas.ServidorHttp.VerificadorReserva;
+import com.example.ui.controledesalas.ServidorHttp.VerificadorReservaByIdUsuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ReservaSalaActivity extends AppCompatActivity {
     List<Sala> salas = new ArrayList<>();
-    ListaReservaAdapter adapter;
+    ListaReservasAdapter adapter;
+
+    private String listaString;
+    public static boolean precisaConexao;
+    List<Reserva> reservas = new ArrayList<>();
+
     public static final String mypreference = "USER_LOGIN";
 
 
@@ -46,8 +57,8 @@ public class ReservaSalaActivity extends AppCompatActivity {
         TextView tx_quantPessoas = findViewById(R.id.tx_quantPessoas_sala);
         TextView tx_refrigeracao = findViewById(R.id.tx_refrigeracao_sala);
         TextView tx_area_sala = findViewById(R.id.tx_area_sala);
-        TextView tx_dataAlteracao = findViewById(R.id.tx_dataAlteracao_sala);
-        TextView tx_dataCriacao = findViewById(R.id.tx_dataCriacao_sala);
+       /* TextView tx_dataAlteracao = findViewById(R.id.tx_dataAlteracao_sala);
+        TextView tx_dataCriacao = findViewById(R.id.tx_dataCriacao_sala);*/
         TextView tx_midia = findViewById(R.id.tx_possuiMidia_sala);
         TextView tx_reservaHoraInicial =  findViewById(R.id.item_datahora_inicial);
         TextView tx_reservaHoraFinal =  findViewById(R.id.item_datahora_final);
@@ -55,7 +66,7 @@ public class ReservaSalaActivity extends AppCompatActivity {
         TextView tx_reservaNomeSala = findViewById(R.id.item_nome_sala);
         final ConstraintLayout expandir = findViewById(R.id.layoutExpand);
         final CardView cardView = findViewById(R.id.card_reserva);
-        ListView reservaListview = findViewById(R.id.listViewReservas);
+
 
 
 
@@ -117,12 +128,12 @@ public class ReservaSalaActivity extends AppCompatActivity {
 
 
                         tx_nome.setText(nome);
-                        tx_local.setText(" Localizacao da sala"+local);
-                        tx_quantPessoas.setText("Quantidade de pessoas sentadas: " + quantPessoas);
+                        tx_local.setText("Localizacao: "+local);
+                        tx_quantPessoas.setText("Capacidade: " + quantPessoas+" pessoas");
                       //  tx_midia.setText("possui midia : "+midia);
                        // tx_refrigeracao.setText("refrigeracao: "+refrigeracao);
-                        tx_area_sala.setText(" Area da sala: " + area);
-                        tx_latitude.setText(" Latitude: "+latitude);
+                        tx_area_sala.setText("Area da sala: " + area);
+                        tx_latitude.setText("Latitude: "+latitude);
                         tx_longitude.setText("Longitude: "+longitude);
                         //tx_dataAlteracao.setText("dataAlteracao: "+dataAlteracao);
                        // tx_dataCriacao.setText("dataCriacao: "+dataCriacao);
@@ -136,6 +147,61 @@ public class ReservaSalaActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            SharedPreferences preferences = getSharedPreferences("USER_LOGIN", 0);
+            String userid = preferences.getString("userIdOrganizacao", null);
+
+            String verifReservas = "";
+            verifReservas = new VerificadorReserva().execute(userid).get();
+
+            if (verifReservas.length() > 0) {
+                JSONArray reservaJson = new JSONArray(verifReservas);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("listaReservas", verifReservas);
+                editor.commit();
+                System.out.println("reserva: " + verifReservas);
+
+                for (int i = 0; i < reservaJson.length(); i++) {
+                    JSONObject reservaJsonObjeto = reservaJson.getJSONObject(i);
+                    if (reservaJsonObjeto.has("id") && reservaJsonObjeto.has("idSala") && reservaJsonObjeto.has("idUser")  && reservaJsonObjeto.has("dataHoraInicio") && reservaJsonObjeto.has("dataHoraFinal") && reservaJsonObjeto.has("descricao") && reservaJsonObjeto.has("nomeOrganizador")) {
+                        int id = reservaJsonObjeto.getInt("id");
+                        int idSala = reservaJsonObjeto.getInt("idSala");
+                        int idUsuario = reservaJsonObjeto.getInt("idUser");
+                        String dataHoraInicio = reservaJsonObjeto.getString("dataHoraInicio");
+                        String dataHoraFim = reservaJsonObjeto.getString("dataHoraFim");
+                        //boolean ativo = reservaObjeto.getBoolean("ativo");
+                        String descricao = reservaJsonObjeto.getString("descricao");
+                        String nomeOrganizador = reservaJsonObjeto.getString("nomeOrganizador");
+
+
+
+                        Reserva novaReserva = new Reserva();
+                        novaReserva.setNomeOrganizador(nomeOrganizador);
+                        novaReserva.setDescricao(descricao);
+                        novaReserva.setHoraIncial(dataHoraInicio);
+                        novaReserva.setHoraFinal(dataHoraFim);
+                        reservas.add(novaReserva);
+
+                    }
+                }
+                ListView listaDeReservas = findViewById(R.id.listViewReservas);
+               /* listaDeReservas.setAdapter(new ListaReservasAdapter(reservas, this));*/
+
+                List<Reserva> reservas = new ReservaDAO().lista();
+                ListaReservasAdapter adapter = new ListaReservasAdapter(reservas, this);
+                listaDeReservas.setAdapter(adapter);
+
+            }
+
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        } catch(ExecutionException e){
+            e.printStackTrace();
+        } catch(JSONException e){
             e.printStackTrace();
         }
 

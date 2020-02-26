@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class VerificadorReserva extends AsyncTask<String, Void, String>
 {
-    String urlWS = "http://172.30.248.99:8080/ReservaDeSala/rest/reserva/byIdSala/";
+    String urlWS = "http://192.168.0.10:8080/ReservaDeSala/rest/reserva/byIdSala/";
 
     @Override
     protected String doInBackground(String... strings)
@@ -36,7 +36,7 @@ public class VerificadorReserva extends AsyncTask<String, Void, String>
 
 
 
-            System.out.println("cadastro de reservas deu boa sim irmao");
+            System.out.println("ce puxou a resrva peli id sala  sim irmao");
             return result.toString();
         }
         catch (Exception e) {
