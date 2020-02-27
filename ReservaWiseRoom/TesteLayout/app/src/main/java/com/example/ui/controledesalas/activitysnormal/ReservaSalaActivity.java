@@ -103,7 +103,7 @@ public class ReservaSalaActivity extends AppCompatActivity {
             int position = bundle.getInt("position");
             if (listaSalasFromPref != null) {
 
-                System.out.println("meudeus"+position);
+                System.out.println("posicao da sala:"+position);
 
                     JSONArray salasJson = new JSONArray(listaSalasFromPref);
 
@@ -153,24 +153,21 @@ public class ReservaSalaActivity extends AppCompatActivity {
 
         try {
             SharedPreferences preferences = getSharedPreferences("USER_LOGIN", 0);
-            String userid = preferences.getString("userIdOrganizacao", null);
+            String userid = preferences.getString("idSala", null);
 
             String verifReservas = "";
             verifReservas = new VerificadorReserva().execute(userid).get();
 
             if (verifReservas.length() > 0) {
                 JSONArray reservaJson = new JSONArray(verifReservas);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("listaReservas", verifReservas);
-                editor.commit();
                 System.out.println("reserva: " + verifReservas);
 
                 for (int i = 0; i < reservaJson.length(); i++) {
                     JSONObject reservaJsonObjeto = reservaJson.getJSONObject(i);
-                    if (reservaJsonObjeto.has("id") && reservaJsonObjeto.has("idSala") && reservaJsonObjeto.has("idUser")  && reservaJsonObjeto.has("dataHoraInicio") && reservaJsonObjeto.has("dataHoraFinal") && reservaJsonObjeto.has("descricao") && reservaJsonObjeto.has("nomeOrganizador")) {
+
                         int id = reservaJsonObjeto.getInt("id");
                         int idSala = reservaJsonObjeto.getInt("idSala");
-                        int idUsuario = reservaJsonObjeto.getInt("idUser");
+                        int idUsuario = reservaJsonObjeto.getInt("idUsuario");
                         String dataHoraInicio = reservaJsonObjeto.getString("dataHoraInicio");
                         String dataHoraFim = reservaJsonObjeto.getString("dataHoraFim");
                         //boolean ativo = reservaObjeto.getBoolean("ativo");
@@ -186,12 +183,10 @@ public class ReservaSalaActivity extends AppCompatActivity {
                         novaReserva.setHoraFinal(dataHoraFim);
                         reservas.add(novaReserva);
 
-                    }
-                }
-                ListView listaDeReservas = findViewById(R.id.listViewReservas);
-               /* listaDeReservas.setAdapter(new ListaReservasAdapter(reservas, this));*/
 
-                List<Reserva> reservas = new ReservaDAO().lista();
+                }
+
+                ListView listaDeReservas = findViewById(R.id.listViewReservas);
                 ListaReservasAdapter adapter = new ListaReservasAdapter(reservas, this);
                 listaDeReservas.setAdapter(adapter);
 

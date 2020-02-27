@@ -34,7 +34,6 @@ public class ListaReservasFragment extends Fragment {
 
     private String listaString;
     public static boolean precisaConexao;
-    List<Reserva> reservas = new ArrayList<>();
 
     @Nullable
     @Override
@@ -47,9 +46,13 @@ public class ListaReservasFragment extends Fragment {
         TextView tx_reservaDescricao = view.findViewById(R.id.item_descricao_reserva);
         TextView tx_reservaNomeSala = view.findViewById(R.id.item_nome_sala);
 
+        ListView listaDeReservas = view.findViewById(R.id.listViewReservas);
+        List<Reserva> reservas = new ReservaDAO().lista();
+        ListaReservasAdapter adapter = new ListaReservasAdapter(reservas, getContext());
+        listaDeReservas.setAdapter(adapter);
 
 
-             try {
+           /*  try {
             SharedPreferences preferences = getContext().getSharedPreferences("USER_LOGIN", 0);
             String idOrg = preferences.getString("userId", null);
 
@@ -58,14 +61,12 @@ public class ListaReservasFragment extends Fragment {
 
             if (verifReservas.length() > 0) {
                 JSONArray reservaJson = new JSONArray(verifReservas);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("listaReservas", verifReservas);
-                editor.commit();
+
                 System.out.println("reserva: " + verifReservas);
 
                 for (int i = 0; i < reservaJson.length(); i++) {
                     JSONObject reservaJsonObjeto = reservaJson.getJSONObject(i);
-                    if (reservaJsonObjeto.has("id") && reservaJsonObjeto.has("idSala") && reservaJsonObjeto.has("idUser")  && reservaJsonObjeto.has("dataHoraInicio") && reservaJsonObjeto.has("dataHoraFinal") && reservaJsonObjeto.has("descricao") && reservaJsonObjeto.has("nomeOrganizador")) {
+
                         int id = reservaJsonObjeto.getInt("id");
                         int idSala = reservaJsonObjeto.getInt("idSala");
                         int idUsuario = reservaJsonObjeto.getInt("idUser");
@@ -85,11 +86,10 @@ public class ListaReservasFragment extends Fragment {
                         reservas.add(novaReserva);
 
                     }
+
+
                 }
 
-                ListView listaDeReservas = view.findViewById(R.id.listViewReservas);
-                listaDeReservas.setAdapter(new ListaReservasAdapter(reservas, getContext()));
-            }
 
             } catch(InterruptedException e){
                 e.printStackTrace();
@@ -97,7 +97,7 @@ public class ListaReservasFragment extends Fragment {
                 e.printStackTrace();
             } catch(JSONException e){
                 e.printStackTrace();
-            }
+            }*/
             return view;
         }
 
