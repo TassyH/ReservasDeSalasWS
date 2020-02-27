@@ -16,9 +16,6 @@ import com.example.ui.controledesalas.R;
 import java.util.List;
 
 public class ListaReservasAdapter extends BaseAdapter {
-    private static int selecionado = -1;
-    public ListaAtualizacaoReservas atualizaLista = null;
-    private int idReserva;
     private final List<Reserva> reservas;
     private Context context;
 
