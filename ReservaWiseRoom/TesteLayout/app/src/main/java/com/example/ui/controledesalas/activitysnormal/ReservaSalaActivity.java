@@ -35,9 +35,6 @@ import java.util.concurrent.ExecutionException;
 public class ReservaSalaActivity extends AppCompatActivity {
     List<Sala> salas = new ArrayList<>();
     ListaReservasAdapter adapter;
-
-    private String listaString;
-    public static boolean precisaConexao;
     List<Reserva> reservas = new ArrayList<>();
 
     public static final String mypreference = "USER_LOGIN";
